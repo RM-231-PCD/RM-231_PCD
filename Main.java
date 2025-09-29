@@ -25,7 +25,7 @@ public class Main {
         System.out.println("=== (3) Grupul G1 ===");
         g1.list();
 
-        // Fir ThA în G2
+
         new MyThread(g2, "ThA", 1);
         System.out.println("=== (4) Grupul G2 ===");
         g2.list();
