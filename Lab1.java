@@ -1,5 +1,5 @@
 /*
-
+    testtttttttttttttt  
     Sunt date 2 fire de executie: fir_1, fir_2. Este dat un sir de numere intregi, din diapazonul de la 0 la 50. Si contine 60 elemente.
 
     Ambele fire de executie inmultesc cate 2 numere mai mici ca 20.fir_1 de executie incepe realizarea de la inceputul sirului, fir_2 incepe de la finalul sirului.
