@@ -1,6 +1,6 @@
 /*
 
-    Sunt date 2 fire de executie: fir_1, fir_2. Este dat un sir de numere intregi, din diapazonul de la 0 la 50. Si contine 60 elemente.
+    Sunt date 2 fire de executie: fir_1, fir_2. Este dat un sir de numere intregi, din diapazonul de la 0 la 100. Si contine 60 elemente.
 firul 1
 Sumele produselor numerelor impare
 două câte două începând căutarea și
@@ -27,6 +27,11 @@ public class Lab1 {
 
         t1.setName("fir_1");
         t1.start();
+        try {
+            t1.join();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
 
     Thread_2 t2 = new Thread_2(tablou, tablou.length - 1, -1, -1);
         t2.setName("fir_2");
@@ -53,34 +58,29 @@ class Thread_1 extends Thread {
     public void run() {
 
         int p = 1;
+        int d = 1;
         int c = 0;
 
 
         for (int i = from; i != to; i += step) {
             if (tablou[i] %2 != 0) {
-                p = p * tablou[i];
                 c++;
-                if (c >= 2) {
+                if (c <= 2) {
+                    p = p * tablou[i];
+                } else if (c <=4){
+                    p = p * tablou[i];
+                }
+                if ( c == 4) {
                     System.out.println("Produsul este: " + Thread.currentThread().getName() + " " + p);
                     p = 1;
+                    d = 1;
                     c = 0;
                 }
             }
         }
+    
 
 
-
-        String numePrenume = "Procopciuc Daniel";
-
-        for (char simbol : numePrenume.toCharArray()) {
-            System.out.print(simbol);
-            try {
-                sleep(100);
-            } catch (InterruptedException e) {
-                System.out.print(e);
-            }
-        }
-        System.out.println();
     }
 }
 
@@ -103,25 +103,39 @@ class Thread_1 extends Thread {
 
             int p = 1;
             int c = 0;
+            int d = 1;
 
-            for (int i = from; i != to; i += step) {
-                if (tablou[i] %2 != 0) {
+            for (int i = from; i > to; i += step) {
+
+            if (tablou[i] %2 != 0) {
+                c++;
+                if (c <= 2) {
                     p = p * tablou[i];
-                    c++;
-                    if (c >= 2) {
-                        System.out.println("Produsul este: " + Thread.currentThread().getName() + " " + p);
-                        p = 1;
-                        c = 0;
-                    }
+                } else if (c <=4){
+                    p = p * tablou[i];
+                }
+                if ( c == 4) {
+                    System.out.println("Produsul este: " + Thread.currentThread().getName() + " " + p);
+                    p = 1;
+                    d = 1;
+                    c = 0;
                 }
             }
+        }
+        
+        String numePrenume = "Procopciuc Daniel";
 
+        for (char simbol : numePrenume.toCharArray()) {
+            System.out.print(simbol);
             try {
-                sleep(4000);
-            }
-            catch (InterruptedException e) {
+                sleep(100);
+            } catch (InterruptedException e) {
                 System.out.print(e);
             }
+        }
+        System.out.println();
+
+
         }
     }   
    
