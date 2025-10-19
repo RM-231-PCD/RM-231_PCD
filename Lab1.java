@@ -1,20 +1,22 @@
 /*
-    testtttttttttttttt  
+
     Sunt date 2 fire de executie: fir_1, fir_2. Este dat un sir de numere intregi, din diapazonul de la 0 la 50. Si contine 60 elemente.
+firul 1
+Sumele produselor numerelor impare
+două câte două începând căutarea și
+sumarea cu primul element
+firul 2
+Sumele produselor numerelor impare două câte
+două începând căutarea și sumarea cu ultimul
+element
 
-    Ambele fire de executie inmultesc cate 2 numere mai mici ca 20.fir_1 de executie incepe realizarea de la inceputul sirului, fir_2 incepe de la finalul sirului.
-
-    Dupa finalizarea calculelor de extras la ecran familia si numele prin primul fir de executie si disciplina prin al doilea fir de executie.
-
-
-    de facut si prin interapt pe acasa
 */
 public class Lab1 {
     public static void main(String []args){
-        int tablou[] = new int[60];
+        int tablou[] = new int[100];
 
-        for(int i=0; i<60; i++){
-            tablou[i] = (int)(Math.random()*50);
+        for(int i=0; i<100; i++){
+            tablou[i] = (int)(Math.random()*100);
 
             System.out.print(" " + tablou[i]);
         }
@@ -55,7 +57,7 @@ class Thread_1 extends Thread {
 
 
         for (int i = from; i != to; i += step) {
-            if (tablou[i] < 20) {
+            if (tablou[i] %2 != 0) {
                 p = p * tablou[i];
                 c++;
                 if (c >= 2) {
@@ -68,12 +70,12 @@ class Thread_1 extends Thread {
 
 
 
-        String numePrenume = "Familia Numele";
+        String numePrenume = "Procopciuc Daniel";
 
         for (char simbol : numePrenume.toCharArray()) {
             System.out.print(simbol);
             try {
-                sleep(150);
+                sleep(100);
             } catch (InterruptedException e) {
                 System.out.print(e);
             }
@@ -103,7 +105,7 @@ class Thread_1 extends Thread {
             int c = 0;
 
             for (int i = from; i != to; i += step) {
-                if (tablou[i] < 20) {
+                if (tablou[i] %2 != 0) {
                     p = p * tablou[i];
                     c++;
                     if (c >= 2) {
@@ -120,20 +122,7 @@ class Thread_1 extends Thread {
             catch (InterruptedException e) {
                 System.out.print(e);
             }
-
-
-            String numePrenume = "Programarea concurenta si distribuita";
-
-            for (char simbol : numePrenume.toCharArray()) {
-                System.out.print(simbol);
-                try {
-                    sleep(150);
-                } catch (InterruptedException e) {
-                    System.out.print(e);
-                }
-            }
-
-            System.out.println();
-
         }
-    }
+    }   
+   
+
