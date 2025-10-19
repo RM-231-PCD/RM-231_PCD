@@ -60,6 +60,7 @@ class Thread_1 extends Thread {
         int p = 1;
         int d = 1;
         int c = 0;
+        int s = 0;
 
 
         for (int i = from; i != to; i += step) {
@@ -68,10 +69,11 @@ class Thread_1 extends Thread {
                 if (c <= 2) {
                     p = p * tablou[i];
                 } else if (c <=4){
-                    p = p * tablou[i];
+                    d = d * tablou[i];
+                    s = p * d;
                 }
                 if ( c == 4) {
-                    System.out.println("Produsul este: " + Thread.currentThread().getName() + " " + p);
+                    System.out.println("Produsul este: " + Thread.currentThread().getName() + " " + "primul produs: " + p + " al doilea produs: " + d + " suma: " + s);
                     p = 1;
                     d = 1;
                     c = 0;
