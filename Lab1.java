@@ -27,6 +27,7 @@ public class Lab1 {
 
         t1.setName("fir_1");
         t1.start();
+        
         try {
             t1.join();
         } catch (Exception e) {
