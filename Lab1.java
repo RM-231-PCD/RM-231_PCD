@@ -9,6 +9,7 @@ firul 2
 Sumele produselor numerelor impare două câte
 două începând căutarea și sumarea cu ultimul
 element
+//danuuuuuu
 
 */
 public class Lab1 {
@@ -149,4 +150,24 @@ class Thread_1 implements Runnable {
         }
     }   
    
+class Thread_3 implements java.lang.Runnable {
+    int[] tablou;
+    int from;
+    int to;
+    int step;
 
+    public Thread_3(int[] tablou, int from, int to, int step) { /* compiled code */ }
+
+    public void run() { /* compiled code */ }
+}
+
+class Thread_4 implements java.lang.Runnable {
+    int[] tablou;
+    int from;
+    int to;
+    int step;
+
+    public Thread_4(int[] tablou, int from, int to, int step) { /* compiled code */ }
+
+    public void run() { /* compiled code */ }
+}
