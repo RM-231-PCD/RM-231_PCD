@@ -30,12 +30,12 @@ public class Lab1 {
         t1.setName("fir_1");
         t1.start();
         
-        try {
-            t1.join();
-        } catch (Exception e) {
-            // TODO: handle exception
-            //System.out.println(e);
-        }
+        // try {
+        //     t1.join();
+        // } catch (Exception e) {
+        //     // TODO: handle exception
+        //     //System.out.println(e);
+        // }
 
     Thread_2 r2 = new Thread_2(tablou, tablou.length - 1, -1, -1);
         Thread t2 = new Thread(r2);
