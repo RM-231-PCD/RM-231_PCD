@@ -19,6 +19,9 @@ public class Main {
         for (int i = 0; i < mas.length; i++) {
             mas[i] = (int) (Math.random() * 100) + 1;
             textArea.append(" " + mas[i]);
+            if(i == 50){
+                textArea.append("\n");
+            }
         }
         textArea.append("\n");
 
