@@ -23,7 +23,8 @@ public class Lab1 {
 
         System.out.println("");
 
-        Thread_1 t1 = new Thread_1(tablou, 0, tablou.length, 1);
+        Thread_1 r1 = new Thread_1(tablou, 0, tablou.length, 1);
+        Thread t1 = new Thread(r1);
 
         t1.setName("fir_1");
         t1.start();
@@ -32,9 +33,11 @@ public class Lab1 {
             t1.join();
         } catch (Exception e) {
             // TODO: handle exception
+            //System.out.println(e);
         }
 
-    Thread_2 t2 = new Thread_2(tablou, tablou.length - 1, -1, -1);
+    Thread_2 r2 = new Thread_2(tablou, tablou.length - 1, -1, -1);
+        Thread t2 = new Thread(r2);
         t2.setName("fir_2");
         t2.start();
 
@@ -42,7 +45,7 @@ public class Lab1 {
 }
 
 
-class Thread_1 extends Thread {
+class Thread_1 implements Runnable {
     int tablou[];
     int from;
     int to;
@@ -88,7 +91,7 @@ class Thread_1 extends Thread {
     }
 }
 
-    class Thread_2 extends Thread {
+    class Thread_2 implements Runnable {
         int tablou[];
         int from;
         int to;
@@ -135,7 +138,7 @@ class Thread_1 extends Thread {
         for (char simbol : numePrenume.toCharArray()) {
             System.out.print(simbol);
             try {
-                sleep(100);
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 System.out.print(e);
             }
