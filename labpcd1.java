@@ -104,7 +104,7 @@ class Thread_4 implements Runnable{
                 c=0;
             }
         }
-        String numePrenume = "DDonesco Alina";
+        String numePrenume = "Donesco Alina";
 
         for (char simbol : numePrenume.toCharArray()) {
             System.out.print(simbol);

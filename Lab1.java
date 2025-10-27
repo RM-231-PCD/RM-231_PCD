@@ -45,6 +45,15 @@ public class Lab1 {
         t2.setName("fir_2");
         t2.start();
 
+    Thread_3 r3 = new Thread_3(tablou, 0, tablou.length, 2);
+        Thread t3 = new Thread(r3);
+        t3.setName("fir_3");
+        t3.start();
+        
+        Thread_4 r4 = new Thread_4(tablou, tablou.length - 1, -1, -2);
+        Thread t4 =  new Thread(r4);
+        t4.setName("fir_4");
+        t4.start();
     }
 }
 
