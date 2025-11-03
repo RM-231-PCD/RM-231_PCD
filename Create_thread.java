@@ -91,6 +91,11 @@ public class Create_thread {
         Creare_thread_V.Th1 t3 = obj.new Th1();
         Creare_thread_V.Th2 t4 = obj.new Th2();
 
+        try {
+            sleep(100);
+        } catch (InterruptedException e) {
+            System.out.print(e);
+        }
         System.out.println(obj.getMemberName() +" Starting threads...");
         t3.start();
         t4.start();
