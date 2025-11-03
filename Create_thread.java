@@ -3,6 +3,64 @@ import java.util.List;
 
 import static java.lang.Thread.sleep;
 
+class Creare_thread_V {
+    private String memberName;
+    private int[] sharedArray;
+
+    public Creare_thread_V(String name, int[] array) {
+        this.memberName = name;
+        this.sharedArray = array;
+    }
+
+    public String getMemberName() {
+        return memberName;
+    }
+
+    class Th1 extends Thread {
+        @Override
+        public void run() {
+            System.out.println(memberName + " Th1 condition 1");
+            System.out.println(memberName + " Th1:First 5 array values:");
+
+            for (int i = 0; i < 5 && i < sharedArray.length; i++) {
+                System.out.println(" mas[" + i + "]=" + sharedArray[i]);
+            }
+
+            try{
+                sleep(4000);
+            }
+            catch (InterruptedException e){
+                System.out.print(e);
+            }
+            String info = "Muntean Victoria / Grupa RM-231";
+            for (char simbol : info.toCharArray()) {
+                System.out.print(simbol);
+                try {
+                    sleep(100);
+                } catch (InterruptedException e) {
+                    System.out.print(e);
+                }
+            }
+            System.out.println();
+
+        }
+    }
+
+    class Th2 extends Thread {
+        @Override
+        public void run() {
+            System.out.println(memberName + " Th2 condition 2");
+            System.out.println(memberName + " Th2:Last 5 array values:");
+
+            for (int i = sharedArray.length - 5; i < sharedArray.length; i++) {
+                if (i >= 0) {
+                    System.out.println(" mas[" + i + "]=" + sharedArray[i]);
+                }
+            }
+        }
+    }
+}
+
 public class Create_thread {
     public static void main(String []args){
         int mas[] = new int[100];
@@ -24,13 +82,21 @@ public class Create_thread {
         t2.setName("Andrei_2");
         t2.start();
 
+        Creare_thread_V obj = new Creare_thread_V("Victoria", mas);
+        Creare_thread_V.Th1 t3 = obj.new Th1();
+        Creare_thread_V.Th2 t4 = obj.new Th2();
 
-        System.out.println();
-        DiffEvenProducts th = new DiffEvenProducts(0, 99, 1, mas);
-        Thread t = new Thread(th);
-        t.setName("Th-Cond9-Start");
-        t.start();
-
+        System.out.println(obj.getMemberName() +" Starting threads...");
+        t3.start();
+        t4.start();
+        try{
+            t3.join();
+            t4.join();
+            System.out.println(obj.getMemberName() +" Threads finished.");
+        }
+        catch(InterruptedException e){
+            System.out.println(obj.getMemberName() +" Thread interrupted: " + e.getMessage());
+        }
     }
 }
 
@@ -135,79 +201,5 @@ class Andrei_2 extends Thread {
     }
 }
 
-class DiffEvenProducts implements Runnable {
-    private int from, to, step;
-    private int[] arr;
-
-    public DiffEvenProducts(int from, int to, int step, int[] arr) {
-        this.from = from;
-        this.to = to;
-        this.step = step;
-        this.arr = arr;
-    }
-
-    public void run() {
-
-        List<Integer> products = new ArrayList<>();
-
-        int pos = from;
-        while (pos <= to && pos < arr.length) {
-
-            if (pos % 2 == 0) {
-                int firstIndex = pos;
-
-                int nextPos = firstIndex + 1;
-                while (nextPos <= to && nextPos < arr.length && nextPos % 2 != 0) {
-                    nextPos++;
-                }
-
-                if (nextPos <= to && nextPos < arr.length && nextPos % 2 == 0) {
-                    int secondIndex = nextPos;
-                    int prod = arr[firstIndex] * arr[secondIndex];
-                    products.add(prod);
-                    System.out.println(Thread.currentThread().getName()
-                            + " Pair: (" + firstIndex + "," + secondIndex + ")"
-                            + " Values: (" + arr[firstIndex] + "," + arr[secondIndex] + ")"
-                            + " Product: " + prod);
-
-                    pos = secondIndex + 1;
-                    continue;
-                } else {
-                    break;
-                }
-            }
-            pos++;
-        }
-
-        for (int i = 0; i + 1 < products.size(); i++) {
-            int diff = products.get(i) - products.get(i + 1);
-            System.out.println(Thread.currentThread().getName()
-                    + " Diff between product " + i + " and " + (i + 1) + ": "
-                    + products.get(i) + " - " + products.get(i + 1) + " = " + diff);
-        }
-        if (products.size() < 2) {
-            System.out.println(Thread.currentThread().getName()
-                    + " Not enough pairs to compute differences (found " + products.size() + " product(s)).");
-        }
-
-        try {
-            sleep(4000);
-        }
-        catch (InterruptedException e) {
-            System.out.print(e);
-        }
-
-        String informatie = "Munteanu Victoria / Grupa RM-231";
-        for (char simbol : informatie.toCharArray()) {
-            System.out.print(simbol);
-            try {
-                sleep(100);
-            } catch (InterruptedException e) {
-                System.out.print(e);
-            }
-        }
-        System.out.println();
-    }
-}
 
 
