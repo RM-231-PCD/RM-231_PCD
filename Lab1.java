@@ -34,7 +34,7 @@ public class Lab1 {
         t1.setName("fir_1");
         t1.start();
 
-    Thread_2 r2 = new Thread_2(tablou, tablou.length - 1, -1, -1);
+    Thread_2 r2 = new Thread_2(tablou,  tablou.length -1, -1, -1);
         Thread t2 = new Thread(r2);
         t2.setName("fir_2");
         t2.start();
@@ -72,7 +72,7 @@ class Thread_1 implements Runnable {
                     p = p * tablou[i];
                 } else if (c <=4){
                     d = d * tablou[i];
-                    s = p * d;
+                    s = p + d;
                 }
                 if ( c == 4) {
                     System.out.println("Produsul este: " + Thread.currentThread().getName() + " " + "primul produs: " + p + " al doilea produs: " + d + " suma: " + s);
@@ -121,7 +121,7 @@ class Thread_1 implements Runnable {
                     p = p * tablou[i];
                 } else if (c <=4){
                     d = d * tablou[i];
-                    s = p * d;
+                    s = p + d;
                 }
                 if ( c == 4) {
                    System.out.println("Produsul este: " + Thread.currentThread().getName() + " " + "primul produs: " + p + " al doilea produs: " + d + " suma: " + s);
