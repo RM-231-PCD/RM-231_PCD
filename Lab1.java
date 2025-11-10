@@ -33,33 +33,18 @@ public class Lab1 {
 
         t1.setName("fir_1");
         t1.start();
-        
-        // try {
-        //     t1.join();
-        // } catch (Exception e) {
-        //     //System.out.println(e);
-        // }
 
     Thread_2 r2 = new Thread_2(tablou, tablou.length - 1, -1, -1);
         Thread t2 = new Thread(r2);
         t2.setName("fir_2");
         t2.start();
 
-    Thread_3 r3 = new Thread_3(tablou, 0, tablou.length, 2);
-        Thread t3 = new Thread(r3);
-        t3.setName("fir_3");
-        t3.start();
-        
-        Thread_4 r4 = new Thread_4(tablou, tablou.length - 1, -1, -2);
-        Thread t4 =  new Thread(r4);
-        t4.setName("fir_4");
-        t4.start();
     }
 }
 
 
 class Thread_1 implements Runnable {
-    int tablou[];
+    int tablou[]; 
     int from;
     int to;
     int step;
@@ -98,9 +83,11 @@ class Thread_1 implements Runnable {
                 }
             }
         }
-    
-
-
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            System.out.print(e);
+        }
     }
 }
 
@@ -145,6 +132,7 @@ class Thread_1 implements Runnable {
                 }
             }
         }
+         
         
         
         
