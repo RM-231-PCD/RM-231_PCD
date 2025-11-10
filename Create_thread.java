@@ -16,15 +16,19 @@ class Creare_thread_V {
         return memberName;
     }
 
-    class Th1 extends Thread {
+    class Th1 extends Thread{
         @Override
-        public void run() {
-            System.out.println(memberName + " Th1 condition 1");
-            System.out.println(memberName + " Th1:First 5 array values:");
+        public void run(){
+            System.out.println(memberName +" Th1 Definitia produselor de la inceput");
 
-            for (int i = 0; i < 5 && i < sharedArray.length; i++) {
-                System.out.println(" mas[" + i + "]=" + sharedArray[i]);
+            int diff=0;
+            for (int i=0;i<sharedArray.length-2;i+=2){
+                int prod1 = sharedArray[i] * sharedArray[i + 1];
+                int prod2 = sharedArray[i + 2] * sharedArray[i + 3 < sharedArray.length ? i + 3 : i + 2];
+                diff += Math.abs(prod1 - prod2);
             }
+
+            System.out.println(memberName + " Diferenta totala (de la inceput): " + diff);
 
             try{
                 sleep(4000);
@@ -42,21 +46,22 @@ class Creare_thread_V {
                 }
             }
             System.out.println();
-
         }
     }
 
-    class Th2 extends Thread {
+    class Th2 extends Thread{
         @Override
-        public void run() {
-            System.out.println(memberName + " Th2 condition 2");
-            System.out.println(memberName + " Th2:Last 5 array values:");
+        public void run(){
+            System.out.println(memberName +" Th2 Definitia produselor de la sfarsit");
 
-            for (int i = sharedArray.length - 5; i < sharedArray.length; i++) {
-                if (i >= 0) {
-                    System.out.println(" mas[" + i + "]=" + sharedArray[i]);
-                }
+            int diff = 0;
+            for (int i = sharedArray.length - 1; i >= 3; i -= 2) {
+                int prod1 = sharedArray[i] * sharedArray[i - 1];
+                int prod2 = sharedArray[i - 2] * sharedArray[i - 3];
+                diff += Math.abs(prod1 - prod2);
             }
+
+            System.out.println(memberName + " Diferenta totala (de la sfarsit): " + diff);
         }
     }
 }
@@ -86,6 +91,11 @@ public class Create_thread {
         Creare_thread_V.Th1 t3 = obj.new Th1();
         Creare_thread_V.Th2 t4 = obj.new Th2();
 
+        try {
+            sleep(100);
+        } catch (InterruptedException e) {
+            System.out.print(e);
+        }
         System.out.println(obj.getMemberName() +" Starting threads...");
         t3.start();
         t4.start();
