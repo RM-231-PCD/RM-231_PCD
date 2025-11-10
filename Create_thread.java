@@ -16,28 +16,29 @@ class Creare_thread_V {
         return memberName;
     }
 
-    class Th1 extends Thread{
+    class Th1 extends Thread {
         @Override
-        public void run(){
-            System.out.println(memberName +" Th1 Definitia produselor de la inceput");
+        public void run() {
+            System.out.println(memberName + " Th1: Calculul produselor de la început");
 
-            int diff=0;
-            for (int i=0;i<sharedArray.length-2;i+=2){
-                int prod1 = sharedArray[i] * sharedArray[i + 1];
-                int prod2 = sharedArray[i + 2] * sharedArray[i + 3 < sharedArray.length ? i + 3 : i + 2];
+            int diff = 0;
+            // Safe indexing: ensure we don’t exceed array bounds
+            for (int i = 0; i < sharedArray.length - 4; i += 2) {
+                int prod1 = sharedArray[i] * sharedArray[i + 2];
+                int prod2 = sharedArray[i + 1] * sharedArray[i + 3];
                 diff += Math.abs(prod1 - prod2);
             }
 
-            System.out.println(memberName + " Diferenta totala (de la inceput): " + diff);
-
-            try{
+            System.out.println(memberName + " Diferența totală (de la început): " + diff);
+            try {
                 sleep(4000);
             }
-            catch (InterruptedException e){
+            catch (InterruptedException e) {
                 System.out.print(e);
             }
-            String info = "Muntean Victoria / Grupa RM-231";
-            for (char simbol : info.toCharArray()) {
+
+            String informatie = "Muntean Victoria / Grupa RM-231";
+            for (char simbol : informatie.toCharArray()) {
                 System.out.print(simbol);
                 try {
                     sleep(100);
@@ -49,37 +50,52 @@ class Creare_thread_V {
         }
     }
 
-    class Th2 extends Thread{
+    class Th2 extends Thread {
         @Override
-        public void run(){
-            System.out.println(memberName +" Th2 Definitia produselor de la sfarsit");
+        public void run() {
+            System.out.println(memberName + " Th2: Calculul produselor de la sfârșit");
 
             int diff = 0;
             for (int i = sharedArray.length - 1; i >= 3; i -= 2) {
-                int prod1 = sharedArray[i] * sharedArray[i - 1];
-                int prod2 = sharedArray[i - 2] * sharedArray[i - 3];
+                int prod1 = sharedArray[i] * sharedArray[i - 2];
+                int prod2 = sharedArray[i - 1] * sharedArray[i - 3];
                 diff += Math.abs(prod1 - prod2);
             }
 
-            System.out.println(memberName + " Diferenta totala (de la sfarsit): " + diff);
+            System.out.println(memberName + " Diferența totală (de la sfârșit): " + diff);
+        }
+    }
+
+    public void startThreads() {
+        Th1 t1 = new Th1();
+        Th2 t2 = new Th2();
+
+        System.out.println(memberName + " Starting threads...");
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+            System.out.println(memberName + " Threads finished.");
+        } catch (InterruptedException e) {
+            System.out.println(memberName + " Thread interrupted: " + e.getMessage());
         }
     }
 }
 
 public class Create_thread {
-    public static void main(String []args){
+    public static void main(String[] args) {
         int mas[] = new int[100];
 
-        for(int i=0; i<100; i++){
-            mas[i] = (int)(Math.random()*100);
-
+        for (int i = 0; i < 100; i++) {
+            mas[i] = (int) (Math.random() * 100);
             System.out.print(" " + mas[i]);
         }
 
-        System.out.println("");
+        System.out.println("\n");
 
         Andrei_1 t1 = new Andrei_1(mas, 0, mas.length, 1);
-
         t1.setName("Andrei_1");
         t1.start();
 
@@ -87,25 +103,20 @@ public class Create_thread {
         t2.setName("Andrei_2");
         t2.start();
 
-        Creare_thread_V obj = new Creare_thread_V("Victoria", mas);
-        Creare_thread_V.Th1 t3 = obj.new Th1();
-        Creare_thread_V.Th2 t4 = obj.new Th2();
-
         try {
             sleep(100);
         } catch (InterruptedException e) {
             System.out.print(e);
         }
-        System.out.println(obj.getMemberName() +" Starting threads...");
-        t3.start();
-        t4.start();
-        try{
-            t3.join();
-            t4.join();
-            System.out.println(obj.getMemberName() +" Threads finished.");
-        }
-        catch(InterruptedException e){
-            System.out.println(obj.getMemberName() +" Thread interrupted: " + e.getMessage());
+
+        Creare_thread_V obj = new Creare_thread_V("Victoria", mas);
+        obj.startThreads();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            System.out.println("Main thread interrupted: " + e.getMessage());
         }
     }
 }
