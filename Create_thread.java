@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.io.IO.println;
 import static java.lang.Thread.sleep;
 
 class Creare_thread_V {
@@ -22,7 +23,6 @@ class Creare_thread_V {
             System.out.println(memberName + " Th1: Calculul produselor de la început");
 
             int diff = 0;
-            // Safe indexing: ensure we don’t exceed array bounds
             for (int i = 0; i < sharedArray.length - 4; i += 2) {
                 int prod1 = sharedArray[i] * sharedArray[i + 2];
                 int prod2 = sharedArray[i + 1] * sharedArray[i + 3];
@@ -90,6 +90,9 @@ public class Create_thread {
 
         for (int i = 0; i < 100; i++) {
             mas[i] = (int) (Math.random() * 100);
+            if (i == 50) {
+                println();
+            }
             System.out.print(" " + mas[i]);
         }
 
