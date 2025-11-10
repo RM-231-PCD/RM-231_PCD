@@ -1,3 +1,5 @@
+package PCD_LAB2;
+
 import javax.swing.*;
 import java.awt.*;
 

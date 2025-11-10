@@ -1,4 +1,6 @@
+package PCD_LAB2;
 import javax.swing.*;
+
 
 public class Thread_1 extends Thread {
   int[] mas;
@@ -30,7 +32,7 @@ public class Thread_1 extends Thread {
           int s = primaValoare + mas[i];
           textArea.append("\n" + getName() + " -> pereche: " + primaValoare + " + " + mas[i] + " = " + s + "\n");
           try {
-            sleep(100);
+            sleep(150);
           } catch (InterruptedException e) {
             e.printStackTrace();
           }

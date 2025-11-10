@@ -1,3 +1,5 @@
+package PCD_LAB1;
+
 public class Main {
     public static void main(String[] args) {
         ThreadGroup sys = Thread.currentThread().getThreadGroup();

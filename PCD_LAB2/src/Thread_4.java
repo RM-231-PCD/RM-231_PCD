@@ -1,3 +1,5 @@
+package PCD_LAB2;
+
 import javax.swing.*;
 
 class Thread_4 extends Thread {
