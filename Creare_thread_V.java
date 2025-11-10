@@ -14,12 +14,11 @@ public class Creare_thread_V {
          
             int diff=0;
             for (int i=0;i<sharedArray.length-2;i+=2){
-                if (i % 2 == 0 && (i+2) % 2 == 0) {
-                    int prod1 = sharedArray[i] * sharedArray[i];
-                    int prod2 = sharedArray[i + 2] * sharedArray[i + 2];
+                    int prod1 = sharedArray[i] * sharedArray[i+2];
+                    int prod2 = sharedArray[i + 2] * sharedArray[i + 4];
 
-                diff += Math.abs(prod1 - prod2); 
-                }
+                    diff += Math.abs(prod1 - prod2); 
+                
             }   
 
             System.out.println(memberName + " Diferenta totala (de la inceput): " + diff);
@@ -32,15 +31,14 @@ public class Creare_thread_V {
             System.out.println(memberName +" Th2 Definitia produselor de la sfarsit");
             
         int diff = 0;
-        int startPos = (sharedArray.length - 1) % 2 == 0 ? sharedArray.length - 1 : sharedArray.length - 2;
-            
-            for (int i = startPos; i >= 2; i -= 2) {
-                if (i % 2 == 0 && (i - 2) % 2 == 0) {
-                    int prod1 = sharedArray[i] * sharedArray[i];
-                    int prod2 = sharedArray[i - 2] * sharedArray[i - 2];
-                    diff += Math.abs(prod1 - prod2);
-                }
+        for (int i = sharedArray.length - 1; i >= 3; i -= 2) {
+            if (i % 2 == 0) { 
+                int prod1 = sharedArray[i] * sharedArray[i - 2];
+                int prod2 = sharedArray[i - 2] * sharedArray[i - 4];
+                
+                diff += Math.abs(prod1 - prod2);
             }
+        }
         System.out.println(memberName + " Diferenta totala (de la sfarsit): " + diff);
     }
 }
