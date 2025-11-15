@@ -12,13 +12,13 @@ class Th1 implements Runnable {
         System.out.println("\n--- Th1: Суммы чётных чисел по два (с начала) ---");
 
         for (int i = 0; i < mas.length - 1; i++) {
-            if (mas[i] % 2 == 0) {               
+            if (mas[i] % 2 == 0) {
                 for (int j = i + 1; j < mas.length; j++) {
-                    if (mas[j] % 2 == 0) {      
+                    if (mas[j] % 2 == 0) {
                         int sum = mas[i] + mas[j];
-                        System.out.println("Пара: [" + i + "]=" + mas[i] +
+                        System.out.println(Thread.currentThread().getName()+": [" + i + "]=" + mas[i] +
                                 " + [" + j + "]=" + mas[j] + " = " + sum);
-                        i = j;            
+                        i = j;
                         break;
                     }
                 }
@@ -39,13 +39,13 @@ class Th2 implements Runnable {
         System.out.println("\n--- Th2: Произведения чётных чисел по два (с конца) ---");
 
         for (int i = mas.length - 1; i > 0; i--) {
-            if (mas[i] % 2 == 0) {               
+            if (mas[i] % 2 == 0) {
                 for (int j = i - 1; j >= 0; j--) {
-                    if (mas[j] % 2 == 0) {        
+                    if (mas[j] % 2 == 0) {
                         int prod = mas[i] * mas[j];
                         System.out.println("Пара: [" + i + "]=" + mas[i] +
                                 " * [" + j + "]=" + mas[j] + " = " + prod);
-                        i = j;              
+                        i = j;
                         break;
                     }
                 }
@@ -66,6 +66,7 @@ public class lab2 {
         for (int i = 0; i < mas.length; i++) {
             mas[i] = 1 + r.nextInt(100);
             System.out.print(mas[i] + " ");
+            if(i == 50){System.out.println();}
         }
         System.out.println("\n");
 
@@ -75,15 +76,12 @@ public class lab2 {
         t1.start();
         t2.start();
 
-        t1.join();
-        t2.join();
-
         String text = "Студент: Иванов Иван, Группа: IS-241, Дисциплина: Параллельное программирование";
 
         System.out.println("\n--- Информация о студенте ---\n");
         for (char c : text.toCharArray()) {
             System.out.print(c);
-            Thread.sleep(100); 
+            Thread.sleep(100);
         }
 
         System.out.println("\n\nРабота завершена.");
