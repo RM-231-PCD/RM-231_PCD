@@ -43,7 +43,7 @@ class Th2 implements Runnable {
                 for (int j = i - 1; j >= 0; j--) {
                     if (mas[j] % 2 == 0) {
                         int prod = mas[i] * mas[j];
-                        System.out.println("Пара: [" + i + "]=" + mas[i] +
+                        System.out.println(Thread.currentThread().getName()+": [" + i + "]=" + mas[i] +
                                 " * [" + j + "]=" + mas[j] + " = " + prod);
                         i = j;
                         break;
