@@ -166,7 +166,6 @@ class Thread_1 implements Runnable {
         }
         System.out.println();
 
-
         }
     } 
     class Thread_3 implements Runnable {
