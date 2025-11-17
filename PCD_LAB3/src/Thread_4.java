@@ -31,7 +31,7 @@ class Thread_4 extends Thread {
 
 
         for (int i = from; i != to; i += step) {
-            textArea.append(" " + mas[i]);
+            textArea.append(" " + getName() + " " + mas[i]);
         }
         textArea.append("\n[Thread_4 for terminat]\n");
 
@@ -40,9 +40,6 @@ class Thread_4 extends Thread {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
-        try { t2.join(); } catch (InterruptedException e) { e.printStackTrace(); }
 
         String Nume = "\nGrupa : RM-231";
         for (char simbol : Nume.toCharArray()) {

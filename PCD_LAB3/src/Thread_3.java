@@ -30,7 +30,7 @@ class Thread_3 extends Thread {
         }
 
         for (int i = from; i != to; i += step) {
-            textArea.append(" " + mas[i]);
+            textArea.append(" " + getName() + " " + mas[i]);
         }
         textArea.append("\n[Thread_3 for terminat]\n");
 
