@@ -37,7 +37,7 @@ public class Thread_1 extends Thread {
                     primaValoare = mas[i];
                 } else {
                     int s = primaValoare + mas[i];
-                    textArea.append("\n" + getName() + " -> pereche: " + primaValoare + " + " + mas[i] + " = " + s + "\n");
+                    textArea.append(getName() + " -> pereche: " + primaValoare + " + " + mas[i] + " = " + s);
                     primaValoare = -1;
                 }
             }
