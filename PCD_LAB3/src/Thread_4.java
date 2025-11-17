@@ -34,6 +34,8 @@ class Thread_4 extends Thread {
             textArea.append(" " + getName() + " " + mas[i]);
         }
         textArea.append("\n[Thread_4 for terminat]\n");
+        textArea.append("\n[Thread_4 for terminat]\n");
+
 
         try {
             t2.join();
