@@ -11,9 +11,8 @@ public class lab2 {
         }
         System.out.println("\n---------------------------");
 
-        // два потока по варианту 5
-        SumForward t1 = new SumForward(mas);   // условие 1
-        SumBackward t2 = new SumBackward(mas); // условие 2
+        SumForward t1 = new SumForward(mas);   
+        SumBackward t2 = new SumBackward(mas);
 
         t1.start();
         t2.start();
