@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.io.IO.println;
 import static java.lang.Thread.sleep;
 
 class Creare_thread_V {
@@ -23,13 +22,30 @@ class Creare_thread_V {
             System.out.println(memberName + " Th1: Calculul produselor de la început");
 
             int diff = 0;
-            for (int i = 0; i < sharedArray.length - 4; i += 2) {
+            int c = 0;
+            for (int i = 0; i < sharedArray.length - 3; i += 2) {
                 int prod1 = sharedArray[i] * sharedArray[i + 2];
                 int prod2 = sharedArray[i + 1] * sharedArray[i + 3];
-                diff += Math.abs(prod1 - prod2);
+                int diffPartial = Math.abs(prod1 - prod2);
+                diff += diffPartial;
+                c++;
+                
+                
+                System.out.println(memberName + " Th1: Produs1=" + prod1 + ", Produs2=" + prod2 + 
+                                 ", Diferenta=" + diffPartial + ", DiferentaTotala=" + diff);
+                
+                if (c >= 2) {
+                    try {
+                        sleep(500);
+                    } catch (InterruptedException e) {
+                        System.out.print(e);
+                    }
+                    c = 0;
+                }
             }
 
             System.out.println(memberName + " Diferența totală (de la început): " + diff);
+            
             try {
                 sleep(4000);
             }
@@ -56,10 +72,25 @@ class Creare_thread_V {
             System.out.println(memberName + " Th2: Calculul produselor de la sfârșit");
 
             int diff = 0;
+            int c = 0;
             for (int i = sharedArray.length - 1; i >= 3; i -= 2) {
                 int prod1 = sharedArray[i] * sharedArray[i - 2];
                 int prod2 = sharedArray[i - 1] * sharedArray[i - 3];
-                diff += Math.abs(prod1 - prod2);
+                int diffPartial = Math.abs(prod1 - prod2);
+                diff += diffPartial;
+                c++;
+           
+                System.out.println(memberName + " Th2: Produs1=" + prod1 + ", Produs2=" + prod2 + 
+                                 ", Diferenta=" + diffPartial + ", DiferentaTotala=" + diff);
+                
+                if (c >= 2) {
+                    try {
+                        sleep(500);
+                    } catch (InterruptedException e) {
+                        System.out.print(e);
+                    }
+                    c = 0;
+                }
             }
 
             System.out.println(memberName + " Diferența totală (de la sfârșit): " + diff);
@@ -91,7 +122,7 @@ public class Create_thread {
         for (int i = 0; i < 100; i++) {
             mas[i] = (int) (Math.random() * 100);
             if (i == 50) {
-                println();
+                System.out.println();
             }
             System.out.print(" " + mas[i]);
         }
