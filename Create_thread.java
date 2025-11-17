@@ -105,13 +105,6 @@ class Creare_thread_V {
         t1.start();
         t2.start();
 
-        try {
-            t1.join();
-            t2.join();
-            System.out.println(memberName + " Threads finished.");
-        } catch (InterruptedException e) {
-            System.out.println(memberName + " Thread interrupted: " + e.getMessage());
-        }
     }
 }
 
@@ -137,21 +130,8 @@ public class Create_thread {
         t2.setName("Andrei_2");
         t2.start();
 
-        try {
-            sleep(100);
-        } catch (InterruptedException e) {
-            System.out.print(e);
-        }
-
         Creare_thread_V obj = new Creare_thread_V("Victoria", mas);
         obj.startThreads();
-
-        try {
-            t1.join();
-            t2.join();
-        } catch (InterruptedException e) {
-            System.out.println("Main thread interrupted: " + e.getMessage());
-        }
     }
 }
 
