@@ -6,20 +6,27 @@ public class Thread_1 extends Thread {
     int from;
     int to;
     int step;
-
-
     JTextArea textArea;
+    Thread_4 t4;
 
-    public Thread_1(int[] mas, int from, int to, int step, JTextArea textArea) {
+    public Thread_1(int[] mas, int from, int to, int step, JTextArea textArea, Thread_4 t4) {
         this.mas = mas;
         this.from = from;
         this.to = to;
         this.step = step;
         this.textArea = textArea;
+        this.t4 = t4;
     }
 
     @Override
     public void run() {
+        try {
+            while (t4.isAlive() && !textArea.getText().contains("[Thread_4 for terminat]")) {
+                sleep(50);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         int primaValoare = -1;
 
         textArea.append(getName() + " începe procesarea:\n");
@@ -42,6 +49,9 @@ public class Thread_1 extends Thread {
             System.out.print(e);
         }
 
+
+
+        try { t4.join(); } catch (InterruptedException e) { e.printStackTrace(); }
 
 
         String prenume_1 = "\nCulev";

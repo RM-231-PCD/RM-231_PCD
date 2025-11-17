@@ -21,10 +21,10 @@ public class Main {
             textArea.append(" " + mas[i]);
         }
         textArea.append("\n");
-        Thread_1 t1 = new Thread_1(mas, 0, mas.length - 1, 1, textArea);
-        Thread_2 t2 = new Thread_2(mas, mas.length - 1, 0,1, textArea, t1);
-        Thread_3 t3 = new Thread_3(mas, 0, 799, 1, textArea, t2);
-        Thread_4 t4 = new Thread_4(mas, 2111, 1456, -1, textArea, t3);
+        Thread_2 t2 = new Thread_2(mas, mas.length - 1, 0,1, textArea);
+        Thread_4 t4 = new Thread_4(mas, 2111, 1456, -1, textArea, t2);
+        Thread_1 t1 = new Thread_1(mas, 0, mas.length - 1, 1, textArea, t4);
+        Thread_3 t3 = new Thread_3(mas, 0, 799, 1, textArea, t1);
 
         t1.setName("Thread_1");
         t1.start();

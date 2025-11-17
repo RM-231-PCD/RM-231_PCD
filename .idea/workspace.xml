@@ -5,32 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df1cbbcf-edaa-4698-b853-fe476a3981b7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/PCD_LAB2/src/Thread_3.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PCD_LAB2/src/Thread_4.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB1/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB1/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB1/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB1/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB1/PCD_LAB1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/PCD_LAB1/PCD_LAB1.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB1/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/PCD_LAB1/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB2/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB2/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB2/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB2/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB2/PCD_LAB2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/PCD_LAB2/PCD_LAB2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB2/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/PCD_LAB2/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB2/src/Thread3.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB2/src/Thread4.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB2/src/Thread_1.java" beforeDir="false" afterPath="$PROJECT_DIR$/PCD_LAB2/src/Thread_1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB2/src/Thread_2.java" beforeDir="false" afterPath="$PROJECT_DIR$/PCD_LAB2/src/Thread_2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB3/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB3/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB3/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB3/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PCD_LAB3/PCD_LAB3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/PCD_LAB3/PCD_LAB3.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PCD_LAB3/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/PCD_LAB3/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PCD_LAB3/src/Thread_1.java" beforeDir="false" afterPath="$PROJECT_DIR$/PCD_LAB3/src/Thread_1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PCD_LAB3/src/Thread_2.java" beforeDir="false" afterPath="$PROJECT_DIR$/PCD_LAB3/src/Thread_2.java" afterDir="false" />
@@ -73,21 +48,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "#5 on Variant__2",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;#5 on Variant__2&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -105,7 +80,8 @@
       <option name="presentableId" value="Default" />
       <updated>1762770305677</updated>
       <workItem from="1762770306839" duration="29000" />
-      <workItem from="1762770369147" duration="496000" />
+      <workItem from="1762770369147" duration="616000" />
+      <workItem from="1763366861425" duration="372000" />
     </task>
     <servers />
   </component>

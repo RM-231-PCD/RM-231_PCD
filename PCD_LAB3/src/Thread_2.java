@@ -10,7 +10,7 @@ public class Thread_2 extends Thread {
     Thread_1 t1;
 
 
-    public Thread_2(int[] mas, int from, int to, int step, JTextArea textArea, Thread_1 t1) {
+    public Thread_2(int[] mas, int from, int to, int step, JTextArea textArea) {
         this.mas = mas;
         this.from = from;
         this.to = to;
@@ -21,13 +21,6 @@ public class Thread_2 extends Thread {
 
     @Override
     public void run() {
-        try {
-            while (t1.isAlive() && !textArea.getText().contains("[Thread_1 for terminat]")) {
-                sleep(50);
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         int primaValoare = -1;
 
@@ -49,7 +42,6 @@ public class Thread_2 extends Thread {
 
         try{ Thread.sleep(1000); } catch(InterruptedException e){ System.out.print(e); }
 
-        try { t1.join(); } catch (InterruptedException e) { e.printStackTrace(); }
 
         String nume_1 = "\nVeaceslav";
         for (char c : nume_1.toCharArray()) {
