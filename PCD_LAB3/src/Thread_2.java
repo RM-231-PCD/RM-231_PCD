@@ -7,7 +7,6 @@ public class Thread_2 extends Thread {
     int to;
     int step;
     JTextArea textArea;
-    Thread_1 t1;
 
 
     public Thread_2(int[] mas, int from, int to, int step, JTextArea textArea) {
@@ -16,7 +15,6 @@ public class Thread_2 extends Thread {
         this.to = to;
         this.step = step;
         this.textArea = textArea;
-        this.t1 = t1;
     }
 
     @Override
