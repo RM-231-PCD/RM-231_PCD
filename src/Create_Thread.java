@@ -1,7 +1,6 @@
 import java.util.concurrent.Semaphore;
 
-public class
-Create_Thread {
+public class Create_Thread {
 
     private static final Object lock = new Object();
     private static boolean th1Done = false;
