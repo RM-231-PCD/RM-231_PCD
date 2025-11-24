@@ -1,4 +1,4 @@
-public class Lab1 {
+public class lab1 {
     public static void main(String []args){
         int tablou[] = new int[100];
 
