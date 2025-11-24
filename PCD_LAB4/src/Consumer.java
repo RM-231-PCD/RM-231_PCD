@@ -15,11 +15,21 @@ public class Consumer extends Thread {
     @Override
     public void run() {
         for (int i = 0; i < needed; i++) {
-            depozit.read(id);
 
-            try {
-                Thread.sleep((int)(Math.random()*300)+50);
-            } catch (InterruptedException ignored) {}
+            String[] consumed = depozit.readTwo(id);
+
+            // dacă producția e terminată și nu sunt produse,
+            // NU mai afișăm nimic, ieșim din thread
+            if (consumed == null) {
+                depozit.consumerDone();
+                return;
+            }
+
+            try { Thread.sleep((int)(Math.random()*300)+50); }
+            catch (InterruptedException ignored) {}
         }
+
+        depozit.consumerDone();
     }
+
 }

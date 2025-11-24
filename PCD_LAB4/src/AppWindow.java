@@ -10,21 +10,18 @@ public class AppWindow extends JFrame {
     private JButton btnStart;
 
     public AppWindow() {
-        setTitle("Producer - Consumer Swing");
-        setSize(600, 500);
+        setTitle("Producer - Consumer (Swing, Buffer Circular)");
+        setSize(650, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Layout principal
         setLayout(new BorderLayout());
 
-        // TextArea log
         logArea = new JTextArea();
         logArea.setEditable(false);
         JScrollPane scroll = new JScrollPane(logArea);
         add(scroll, BorderLayout.CENTER);
 
-        // Panel top
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
@@ -44,16 +41,18 @@ public class AppWindow extends JFrame {
     private void startSimulation() {
         btnStart.setEnabled(false);
 
-        int X = 3, Y = 4, Z = 2, D = 5, F = 2;
+        int X = 3, Y = 4, Z = 2, D = 5;
 
-        Depozit depozit = new Depozit(D, Z * Y, this);
+        Depozit depozit = new Depozit(D, Z * Y, Y, this);
 
         for (int i = 1; i <= X; i++) {
-            new Producer(i, F, depozit).start();
+            new Producer(i, depozit).start();
         }
+
         for (int i = 1; i <= Y; i++) {
             new Consumer(i, Z, depozit).start();
         }
+
         log("Sistem pornit.\n");
     }
 
@@ -65,6 +64,8 @@ public class AppWindow extends JFrame {
     }
 
     public void updateStatus(int count, int capacity) {
-        SwingUtilities.invokeLater(() -> lblStatus.setText("Depozit: " + count + " / " + capacity));
+        SwingUtilities.invokeLater(() ->
+                lblStatus.setText("Depozit: " + count + " / " + capacity)
+        );
     }
 }
