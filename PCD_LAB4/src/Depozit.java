@@ -29,9 +29,7 @@ public class Depozit {
             gui.log("Depozitul este plin → Producătorul " + producerId + " așteaptă...");
             try {
                 wait();
-            } catch (InterruptedException ignored) {
-
-            }
+            } catch (InterruptedException ignored) {}
         }
 
         if (produced >= totalToConsume) return;
@@ -50,33 +48,34 @@ public class Depozit {
         notifyAll();
     }
 
-    public synchronized String[] readTwo(int consumerId) {
+    public synchronized String readOne(int consumerId) {
 
-        if (productionFinished() && count < 2) {
+        if (productionFinished() && count < 1) {
             return null;
         }
 
-        while (count < 2) {
-
+        while (count < 1) {
             if (productionFinished()) {
                 return null;
             }
 
             gui.log("Depozitul este gol → Consumatorul " + consumerId + " așteaptă...");
-            try { wait(); } catch (InterruptedException ignored) {}
+            try {
+                wait();
+            } catch (InterruptedException ignored) {
+
+            }
         }
 
-        String p2 = depozit[count - 1];
-        String p1 = depozit[count - 2];
+        String obj = depozit[count - 1];
+        count--;
+        consumed++;
 
-        count -= 2;
-        consumed += 2;
-
-        gui.log("Consumatorul " + consumerId + " a consumat: " + p1 + " și " + p2);
+        gui.log("Consumatorul " + consumerId + " a consumat: " + obj);
         gui.updateStatus(count, capacity);
 
         notifyAll();
-        return new String[]{p1, p2};
+        return obj;
     }
 
     public synchronized void consumerDone() {

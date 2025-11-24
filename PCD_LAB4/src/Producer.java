@@ -1,7 +1,6 @@
 package PCD_LAB4;
 
 public class Producer extends Thread {
-
     private int id;
     private Depozit depozit;
 
@@ -22,9 +21,7 @@ public class Producer extends Thread {
 
             depozit.store(b1, b2, id);
 
-            try {
-                Thread.sleep((int)(Math.random()*400)+1);
-            }
+            try { Thread.sleep((int)(Math.random()*300)+50); }
             catch (InterruptedException ignored) {}
         }
     }

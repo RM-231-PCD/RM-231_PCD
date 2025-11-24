@@ -16,14 +16,14 @@ public class Consumer extends Thread {
     public void run() {
         for (int i = 0; i < needed; i++) {
 
-            String[] consumed = depozit.readTwo(id);
+            String obj = depozit.readOne(id);
 
-            if (consumed == null) {
+            if (obj == null) {
                 depozit.consumerDone();
                 return;
             }
 
-            try { Thread.sleep((int)(Math.random()*300)+50); }
+            try { Thread.sleep((int)(Math.random()*200)+50); }
             catch (InterruptedException ignored) {}
         }
 
