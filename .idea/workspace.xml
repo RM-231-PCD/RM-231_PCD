@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="df1cbbcf-edaa-4698-b853-fe476a3981b7" name="Changes" comment="" />
+    <list default="true" id="df1cbbcf-edaa-4698-b853-fe476a3981b7" name="Changes" comment="slavic vede">
+      <change afterPath="$PROJECT_DIR$/PCD_LAB4/PCD_LAB4.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PCD_LAB3/PCD_LAB3/Thread_1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PCD_LAB3/PCD_LAB3/Thread_1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/PCD_LAB3/PCD_LAB3/Thread_4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/PCD_LAB3/PCD_LAB3/Thread_4.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,6 +38,10 @@
     &quot;accountId&quot;: &quot;2b9ebb4f-e7f0-43ea-8981-dcfe3a8e12be&quot;
   }
 }</component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 1
@@ -41,21 +51,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;#5 on Variant__2&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.ProducerConsumer.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "#5 on Variant__2",
+    "kotlin-language-version-configured": "true",
+    "last_directory_selection": "C:/Users/Cornel/IdeaProjects/RM-231_PCD/PCD_LAB4/src",
+    "last_opened_file_path": "C:/Users/Cornel/IdeaProjects/PCD_sem4",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/Cornel/IdeaProjects/RM-231_PCD/PCD_LAB4/src/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -75,10 +93,37 @@
       <workItem from="1762770306839" duration="29000" />
       <workItem from="1762770369147" duration="616000" />
       <workItem from="1763366861425" duration="372000" />
+      <workItem from="1763370585060" duration="318000" />
+      <workItem from="1763965153866" duration="144000" />
+      <workItem from="1763965381242" duration="1244000" />
     </task>
+    <task id="LOCAL-00001" summary="slavic vede">
+      <option name="closed" value="true" />
+      <created>1763370117221</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1763370117221</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="slavic vede" />
+    <option name="LAST_COMMIT_MESSAGE" value="slavic vede" />
   </component>
 </project>
