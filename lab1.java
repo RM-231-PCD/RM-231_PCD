@@ -1,7 +1,6 @@
 
 public class lab1 {
-
-    public static void main(String[] args) {
+    public static void main(String []args){
         int tablou[] = new int[100];
 
         for (int i = 0; i < 100; i++) {
@@ -219,7 +218,7 @@ class Thread_4 implements Runnable {
                 c = 0;
             }
         }
-        String numePrenume = "Prepelita Catalin";
+        String numePrenume = "Prepelita Catalin!!!";
 
         for (char simbol : numePrenume.toCharArray()) {
             System.out.print(simbol);
