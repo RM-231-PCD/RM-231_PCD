@@ -2,11 +2,8 @@ package PCD_LAB4;
 
 public class Depozit {
 
-    private String[] buffer;
+    private String[] depozit;
     private int capacity;
-
-    private int writePos = 0;
-    private int readPos = 0;
     private int count = 0;
 
     private int totalToConsume;
@@ -23,26 +20,29 @@ public class Depozit {
         this.totalToConsume = totalToConsume;
         this.totalConsumers = totalConsumers;
         this.gui = gui;
-        this.buffer = new String[capacity];
+        this.depozit = new String[capacity];
     }
 
-    // PRODUCĂTORII PRODUC 2 PRODUSE
     public synchronized void store(String p1, String p2, int producerId) {
+
         while (count + 2 > capacity && consumed < totalToConsume) {
             gui.log("Depozitul este plin → Producătorul " + producerId + " așteaptă...");
-            try { wait(); } catch (InterruptedException ignored) {}
+            try {
+                wait();
+            } catch (InterruptedException ignored) {
+
+            }
         }
 
         if (produced >= totalToConsume) return;
 
-        buffer[writePos] = p1;
-        writePos = (writePos + 1) % capacity;
+        depozit[count] = p1;
+        count++;
 
-        buffer[writePos] = p2;
-        writePos = (writePos + 1) % capacity;
+        depozit[count] = p2;
+        count++;
 
         produced += 2;
-        count += 2;
 
         gui.log("Producătorul " + producerId + " a produs: " + p1 + " și " + p2);
         gui.updateStatus(count, capacity);
@@ -52,14 +52,12 @@ public class Depozit {
 
     public synchronized String[] readTwo(int consumerId) {
 
-        // Dacă producția s-a terminat și nu mai sunt produse => consumatorul iese
         if (productionFinished() && count < 2) {
-            return null;   // NU mai afișăm nimic, NU mai așteptăm
+            return null;
         }
 
         while (count < 2) {
 
-            // Dacă producția s-a terminat, nu mai are rost să așteptăm
             if (productionFinished()) {
                 return null;
             }
@@ -68,26 +66,19 @@ public class Depozit {
             try { wait(); } catch (InterruptedException ignored) {}
         }
 
-        // consumă 2 produse
-        String p1 = buffer[readPos];
-        readPos = (readPos + 1) % capacity;
+        String p2 = depozit[count - 1];
+        String p1 = depozit[count - 2];
 
-        String p2 = buffer[readPos];
-        readPos = (readPos + 1) % capacity;
-
-        consumed += 2;
         count -= 2;
+        consumed += 2;
 
         gui.log("Consumatorul " + consumerId + " a consumat: " + p1 + " și " + p2);
         gui.updateStatus(count, capacity);
 
         notifyAll();
-
         return new String[]{p1, p2};
     }
 
-
-    // NOTIFICĂ FINALIZAREA UNUI CONSUMATOR
     public synchronized void consumerDone() {
         finishedConsumers++;
         if (finishedConsumers == totalConsumers) {

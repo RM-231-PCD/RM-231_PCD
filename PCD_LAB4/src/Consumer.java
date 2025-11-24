@@ -18,8 +18,6 @@ public class Consumer extends Thread {
 
             String[] consumed = depozit.readTwo(id);
 
-            // dacă producția e terminată și nu sunt produse,
-            // NU mai afișăm nimic, ieșim din thread
             if (consumed == null) {
                 depozit.consumerDone();
                 return;
@@ -31,5 +29,4 @@ public class Consumer extends Thread {
 
         depozit.consumerDone();
     }
-
 }

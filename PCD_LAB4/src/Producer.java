@@ -22,7 +22,9 @@ public class Producer extends Thread {
 
             depozit.store(b1, b2, id);
 
-            try { Thread.sleep((int)(Math.random()*400)+50); }
+            try {
+                Thread.sleep((int)(Math.random()*400)+50);
+            }
             catch (InterruptedException ignored) {}
         }
     }
