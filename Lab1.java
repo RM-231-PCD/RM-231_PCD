@@ -22,7 +22,7 @@ public class Lab1 {
 
         for(int i=0; i<100; i++){
             tablou[i] = (int)(Math.random()*100);
-
+            if(i==50){System.out.println();}
             System.out.print(" " + tablou[i]);
         }
 
@@ -44,11 +44,11 @@ public class Lab1 {
         Thread t3 = new Thread(r3);
         t3.setName("fir_3");
         t3.start();
-        // try {
-        //     t3.join();
-        // } catch (Exception e) {
-        //     System.out.println(e);
-        // }
+        try {
+            t3.join();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
 
 
 
@@ -241,6 +241,12 @@ class Thread_4 implements Runnable{
                 c=0;
             }
         }
+
+        try {
+                Thread.sleep(2500);
+            } catch (InterruptedException e) {
+                System.out.print(e);
+            }
         String numePrenume = "Donesco Alina";
 
         for (char simbol : numePrenume.toCharArray()) {
