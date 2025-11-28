@@ -52,7 +52,7 @@ public class Create_Thread {
             System.out.println("Suma Th2 = " + sum);
 
             try {
-                Thread.sleep(4000);
+                Thread.sleep(2700);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -75,7 +75,7 @@ public class Create_Thread {
             System.out.println();
 
             try {
-                Thread.sleep(7000);
+                Thread.sleep(5000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -99,7 +99,7 @@ public class Create_Thread {
             System.out.println();
 
             try {
-                Thread.sleep(2700);
+                Thread.sleep(9000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -114,9 +114,6 @@ public class Create_Thread {
         Th4 t4 = new Th4();
         Th1 t1 = new Th1();
         Th3 t3 = new Th3();
-
-        t2.setPriority(Thread.NORM_PRIORITY + 1);
-        t1.setPriority(Thread.NORM_PRIORITY);
 
         t3.start();
         t4.start();
