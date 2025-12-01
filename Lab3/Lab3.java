@@ -19,12 +19,27 @@ public class Lab3 {
 
         Thread t1 = new Thread(new Thread_1(tablou, 0, tablou.length, 1), "fir_1");
         Thread t2 = new Thread(new Thread_2(tablou, tablou.length - 1, -1, -1), "fir_2");
-        Thread t3 = new Thread(new Thread_3(234, 987), "fir_3");
-        Thread t4 = new Thread(new Thread_4(890, 123), "fir_4"); 
+        Thread t3 = new Thread(new Thread_3(234, 400), "fir_3");
+        Thread t4 = new Thread(new Thread_4(890, 700), "fir_4");
 
         t1.start();
+        try {
+            t1.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         t2.start();
+        try {
+            t2.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         t3.start();
+        try {
+            t3.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         t4.start();
     }
 }
@@ -43,11 +58,11 @@ class Thread_1 implements Runnable {
     @Override
     public void run() {
         int count = 0;
-        int[] oddNumbers = new int[4]; 
+        int[] oddNumbers = new int[4];
 
         for (int i = from; i != to; i += step) {
             if (tablou[i] % 2 != 0) {
-                oddNumbers[count++] = tablou[i];
+                oddNumbers[count++] = i;
                 if (count == 4) {
                     int p1 = oddNumbers[0] * oddNumbers[1];
                     int p2 = oddNumbers[2] * oddNumbers[3];
@@ -56,6 +71,13 @@ class Thread_1 implements Runnable {
                 }
             }
         }
+        
+        String numePrenume = "Donesco si Procopciuc";
+        for (char c : numePrenume.toCharArray()) {
+            System.out.print(c);
+            try { Thread.sleep(100); } catch (InterruptedException e) { }
+        }
+        System.out.println();
     }
 }
 
@@ -77,7 +99,7 @@ class Thread_2 implements Runnable {
 
         for (int i = from; i != to; i += step) {
             if (tablou[i] % 2 != 0) {
-                oddNumbers[count++] = tablou[i];
+                oddNumbers[count++] = i;
                 if (count == 4) {
                     int p1 = oddNumbers[0] * oddNumbers[1];
                     int p2 = oddNumbers[2] * oddNumbers[3];
@@ -86,6 +108,12 @@ class Thread_2 implements Runnable {
                 }
             }
         }
+        String numePrenume = "Alina si Daniel";
+        for (char c : numePrenume.toCharArray()) {
+            System.out.print(c);
+            try { Thread.sleep(100); } catch (InterruptedException e) { }
+        }
+        System.out.println();
     }
 }
 
@@ -94,11 +122,21 @@ class Thread_3 implements Runnable {
 
     public Thread_3(int from, int to) { this.from = from; this.to = to; }
 
+
     @Override
     public void run() {
         for (int i = from; i <= to; i++) {
+            if(i%50==0){
+                System.out.println("");
+            }
             System.out.print(" " + i);
-            try { Thread.sleep(1000); } catch (InterruptedException e) { }
+            try { Thread.sleep(100); } catch (InterruptedException e) { }
+        }
+        System.out.println();
+        String numePrenume = "Programarea Concurenta si Distribuita";
+        for (char c : numePrenume.toCharArray()) {
+            System.out.print(c);
+            try { Thread.sleep(100); } catch (InterruptedException e) { }
         }
         System.out.println();
     }
@@ -108,20 +146,23 @@ class Thread_4 implements Runnable {
     int from, to;
 
     public Thread_4(int from, int to) {
-         this.from = from; this.to = to; 
-        }
+        this.from = from; this.to = to;
+    }
 
     @Override
     public void run() {
         for (int i = from; i >= to; i--) {
             System.out.print(" " + i);
-            try { Thread.sleep(300); } catch (InterruptedException e) { }
+            if(i%50 ==0){
+                System.out.println();
+            }
+            try { Thread.sleep(100); } catch (InterruptedException e) { }
         }
         System.out.println();
-         String numePrenume = "Procopciuc Daniel";
+        String numePrenume = "RM-231";
         for (char c : numePrenume.toCharArray()) {
             System.out.print(c);
-            try { Thread.sleep(300); } catch (InterruptedException e) { }
+            try { Thread.sleep(100); } catch (InterruptedException e) { }
         }
         System.out.println();
     }
