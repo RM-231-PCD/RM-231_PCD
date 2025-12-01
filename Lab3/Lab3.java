@@ -129,16 +129,21 @@ class Thread_3 implements Runnable {
             if(i%50==0){
                 System.out.println("");
             }
-            System.out.print( Thread.currentThread().getName() +   " " + i+ " ");
-            try { Thread.sleep(100); } catch (InterruptedException e) { }
+            System.out.println( Thread.currentThread().getName() +   " " + i+ " ");
+            try { Thread.sleep(100); } catch (InterruptedException e) { 
+            }
         }
-        System.out.println();
+        try { Thread.sleep(100); 
+System.out.println();
         String numePrenume = "Programarea Concurenta si Distribuita";
         for (char c : numePrenume.toCharArray()) {
             System.out.print(c);
             try { Thread.sleep(100); } catch (InterruptedException e) { }
         }
         System.out.println();
+        } catch (InterruptedException e) { }
+        
+        
     }
 }
 
@@ -152,7 +157,7 @@ class Thread_4 implements Runnable {
     @Override
     public void run() {
         for (int i = from; i >= to; i--) {
-            System.out.print(Thread.currentThread().getName() + " " + i+ " ");
+            System.out.println(Thread.currentThread().getName() + " " + i+ " ");
             if(i%50 ==0){
                 System.out.println();
             }
