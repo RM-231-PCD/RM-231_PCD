@@ -20,7 +20,6 @@ public class Consumer implements Runnable {
                 }
 
                 int value = gui.buffer.take();
-
                 int localCount = gui.consumerCounters.get(id).incrementAndGet();
                 int globalCount = gui.totalConsumed.incrementAndGet();
 

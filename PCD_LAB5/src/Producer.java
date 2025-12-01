@@ -22,16 +22,20 @@ public class Producer implements Runnable {
         try {
             while (gui.totalProduced.get() < AppWindowLab5.TOTAL_OBJECTS) {
 
-                for (int i = 0; i < AppWindowLab5.F_PER_PRODUCER; i++) {
+                int free = AppWindowLab5.BUFFER_CAPACITY - gui.buffer.size();
+
+                if (free == 0) {
+                    gui.log("Producătorul " + id + ": Depozitul este plin, așteaptă...");
+                }
+
+                int canAdd = Math.min(2, free);
+
+                for (int i = 0; i < canAdd; i++) {
 
                     if (gui.totalProduced.get() >= AppWindowLab5.TOTAL_OBJECTS)
                         break;
 
                     int value = generateOdd();
-
-                    if (gui.buffer.remainingCapacity() == 0) {
-                        gui.log("Producătorul " + id + ": Depozitul este plin, așteaptă...");
-                    }
 
                     gui.buffer.put(value);
 
@@ -45,7 +49,6 @@ public class Producer implements Runnable {
                 }
 
                 Thread.sleep(200);
-
             }
 
             gui.log("Producătorul " + id + ": a terminat producția.");
