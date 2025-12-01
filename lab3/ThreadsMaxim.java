@@ -41,7 +41,8 @@ public class ThreadsMaxim {
 
             System.out.println("\n>>> Th3 FINAL: " + array1.length +
                     " elemente procesate [realizat de: Secrieru Maxim]");
-
+             
+            LaboratorThreadsMain.printArray(array1);
             LaboratorThreadsMain.threadFinished();
             LaboratorThreadsMain.waitForAllThreads();
             LaboratorThreadsMain.displayInOrder("Thread-3", LaboratorThreadsMain.DISCIPLINA);
@@ -87,6 +88,9 @@ public class ThreadsMaxim {
 
             System.out.println("\n>>> Th4 FINAL: " + array2.length +
                     " elemente procesate [realizat de: Secrieru Maxim]");
+
+
+            LaboratorThreadsMain.printArray(array2);
 
             LaboratorThreadsMain.threadFinished();
             LaboratorThreadsMain.waitForAllThreads();

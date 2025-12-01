@@ -69,6 +69,16 @@ public class LaboratorThreadsMain {
     }
 
 
+        public static void printArray(int[] arr) {
+        System.out.println("\nRezultatul realizării:");
+        System.out.println("Printing Array:");
+        for (int x : arr) {
+            System.out.print(x + " ");
+        }
+        System.out.println("\n");
+    }
+
+
 
     public static void threadFinished() {
         synchronized (finishedLock) {
