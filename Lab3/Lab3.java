@@ -129,7 +129,7 @@ class Thread_3 implements Runnable {
             if(i%50==0){
                 System.out.println("");
             }
-            System.out.print(" " + i);
+            System.out.print( Thread.currentThread().getName() +   " " + i+ " ");
             try { Thread.sleep(100); } catch (InterruptedException e) { }
         }
         System.out.println();
@@ -152,7 +152,7 @@ class Thread_4 implements Runnable {
     @Override
     public void run() {
         for (int i = from; i >= to; i--) {
-            System.out.print(" " + i);
+            System.out.print(Thread.currentThread().getName() + " " + i+ " ");
             if(i%50 ==0){
                 System.out.println();
             }
