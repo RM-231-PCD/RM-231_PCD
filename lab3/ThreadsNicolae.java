@@ -8,7 +8,7 @@ public class ThreadsNicolae {
         public void run() {
 
             Thread currentThread = Thread.currentThread();
-            System.out.println("=== TH1 – Josan Nicolae ===");
+            System.out.println("TH1 – Josan Nicolae ");
             System.out.println("Thread name: " + currentThread.getName());
             System.out.println("Thread ID: " + currentThread.getId());
             System.out.println("Rol: Sumele produselor numerelor de pe poziții pare două câte două începând cu primul element");
@@ -17,19 +17,14 @@ public class ThreadsNicolae {
             int[] array = LaboratorThreadsMain.array1;
             long totalSum = 0;
 
-            // Parcurgem pozițiile pare (0, 2, 4, 6, 8, ...) și le grupez două câte două
-            // Perechea 1: (0, 2), Perechea 2: (4, 6), Perechea 3: (8, 10), etc.
             for (int i = 0; i < array.length - 2; i += 4) {
-                // Verifică dacă thread-ul a fost întrerupt
                 if (currentThread.isInterrupted()) {
                     System.out.println("\nTh1: Thread-ul a fost întrerupt!");
                     currentThread.interrupt();
                     return;
                 }
 
-                // Prima poziție pară din pereche
                 int pos1 = i;
-                // A doua poziție pară din pereche (următoarea poziție pară)
                 int pos2 = i + 2;
 
                 if (pos2 < array.length) {
@@ -59,15 +54,12 @@ public class ThreadsNicolae {
         }
     }
 
-    // ============================
-    // THREAD 2 – Josan Nicolae
-    // ============================
     public static class Task2 implements Runnable {
         @Override
         public void run() {
 
             Thread currentThread = Thread.currentThread();
-            System.out.println("=== TH2 – Josan Nicolae ===");
+            System.out.println("Josan Nicolae");
             System.out.println("Thread name: " + currentThread.getName());
             System.out.println("Thread ID: " + currentThread.getId());
             System.out.println("Rol: Sumele produselor numerelor de pe poziții pare două câte două începând cu ultimul element");
@@ -76,10 +68,6 @@ public class ThreadsNicolae {
             int[] array = LaboratorThreadsMain.array1;
             long totalSum = 0;
 
-            // Găsim ultima poziție pară și parcurgem înapoi
-            // Pozițiile pare: 0, 2, 4, 6, 8, 10, ...
-            // Dacă lungimea este impară, ultima poziție pară este length-2
-            // Dacă lungimea este pară, ultima poziție pară este length-2
             int lastEvenPos = (array.length - 1) % 2 == 0 ? array.length - 1 : array.length - 2;
 
             // Parcurgem pozițiile pare de la sfârșit spre început, două câte două
@@ -92,9 +80,7 @@ public class ThreadsNicolae {
                     return;
                 }
 
-                // Prima poziție pară din pereche (de la sfârșit)
                 int pos1 = i;
-                // A doua poziție pară din pereche (anterioară)
                 int pos2 = i - 2;
 
                 if (pos2 >= 0) {

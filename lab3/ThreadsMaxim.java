@@ -16,17 +16,15 @@ public class ThreadsMaxim {
             int countInLine = 0;
 
             for (int i = 0; i < array1.length; i++) {
-                // Verifică dacă thread-ul a fost întrerupt
                 if (currentThread.isInterrupted()) {
                     System.out.println("\nTh3: Thread-ul a fost întrerupt!");
-                    currentThread.interrupt(); // Restabilește flag-ul
+                    currentThread.interrupt();
                     return;
                 }
 
                 System.out.print("Th3:" + array1[i] + " ");
                 countInLine++;
 
-                // după fiecare 10 elemente, trecem pe rând nou
                 if (countInLine == 10) {
                     System.out.println();
                     countInLine = 0;
@@ -36,7 +34,7 @@ public class ThreadsMaxim {
                     Thread.sleep(2); 
                 } catch (InterruptedException e) {
                     System.out.println("\nTh3: Sleep întrerupt!");
-                    currentThread.interrupt(); // Restabilește flag-ul de întrerupere
+                    currentThread.interrupt();
                     return;
                 }
             }
@@ -60,21 +58,19 @@ public class ThreadsMaxim {
             System.out.println("Rol: de parcurs de la SFÂRȘIT intervalul [567, 1100]");
             System.out.println("Th4: Parcurgere DE LA SFÂRȘIT intervalul [567, 1100]");
 
-            int[] array2 = LaboratorThreadsMain.array2; // [567, 1100]
+            int[] array2 = LaboratorThreadsMain.array2;
             int countInLine = 0;
 
             for (int i = array2.length - 1; i >= 0; i--) {
-                // Verifică dacă thread-ul a fost întrerupt
                 if (currentThread.isInterrupted()) {
                     System.out.println("\nTh4: Thread-ul a fost întrerupt!");
-                    currentThread.interrupt(); // Restabilește flag-ul
+                    currentThread.interrupt();
                     return;
                 }
 
                 System.out.print("Th4:" + array2[i] + " ");
                 countInLine++;
 
-                // după fiecare 10 elemente, trecem pe rând nou
                 if (countInLine == 10) {
                     System.out.println();
                     countInLine = 0;
@@ -84,7 +80,7 @@ public class ThreadsMaxim {
                     Thread.sleep(2); 
                 } catch (InterruptedException e) {
                     System.out.println("\nTh4: Sleep întrerupt!");
-                    currentThread.interrupt(); // Restabilește flag-ul de întrerupere
+                    currentThread.interrupt();
                     return;
                 }
             }

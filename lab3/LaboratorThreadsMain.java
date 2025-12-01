@@ -5,7 +5,7 @@ public class LaboratorThreadsMain {
 
     public static final String NUME_STUDENT = "Josan Nicolae si Secrieru Maxim";
     public static final String PRENUME_STUDENT = "Nicolae";
-    public static final String GRUPA = "CR-232";
+    public static final String GRUPA = "RM-232";
     public static final String DISCIPLINA = "Programarea Concurentă și distribuită";
 
 
@@ -29,7 +29,7 @@ public class LaboratorThreadsMain {
 
     public static void main(String[] args) {
 
-        System.out.println("=== LABORATOR RM-231 ===");
+        System.out.println("LABORATOR RM-231");
         System.out.println("Echipa: Josan Nicolae si Secrieru Maxim\n");
 
         Thread th1 = new Thread(new ThreadsNicolae.Task1(), "Thread-1");
@@ -56,7 +56,7 @@ public class LaboratorThreadsMain {
             e.printStackTrace();
         }
 
-        System.out.println("\n=== Toate firele s-au încheiat. ===");
+        System.out.println("\n Toate firele s-au încheiat.");
     }
 
 
