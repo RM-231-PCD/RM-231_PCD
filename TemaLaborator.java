@@ -37,7 +37,7 @@ public class TemaLaborator {
         
         ThreadGroup groupGM = new ThreadGroup(mainGroup, "GM");
 
-        
+
         new MyThread(groupGH, "Tha", 4);
         new MyThread(groupGH, "Thb", 3);
         new MyThread(groupGH, "Thc", 6);
@@ -60,7 +60,7 @@ public class TemaLaborator {
         System.out.println("\n=============================================");
         System.out.println(" Enumerarea firelor active din grupul principal 'main':");
         System.out.println("=============================================");
-        e
+
         enumerateGroup(mainGroup);
 
         System.out.println("\nFinalizarea programului principal.");
