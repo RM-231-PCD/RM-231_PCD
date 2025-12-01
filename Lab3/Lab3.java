@@ -1,12 +1,3 @@
-package Lab3;
-
-/*
-Suma produselor perechilor de numere impare, luate două câte două, parcurgând șirul de la primul element fir 1
-Suma produselor perechilor de numere impare, luate două câte două, parcurgând șirul de la ultimul element fir 2
-
-De parcurs de la început intervalul [234, 987] fir 3
-De parcurs de la sfârșit intervalul [123, 890] fir 4
-*/
 public class Lab3 {
     public static void main(String[] args) {
         int tablou[] = new int[100];
@@ -19,27 +10,15 @@ public class Lab3 {
 
         Thread t1 = new Thread(new Thread_1(tablou, 0, tablou.length, 1), "fir_1");
         Thread t2 = new Thread(new Thread_2(tablou, tablou.length - 1, -1, -1), "fir_2");
-        Thread t3 = new Thread(new Thread_3(234, 400), "fir_3");
-        Thread t4 = new Thread(new Thread_4(890, 700), "fir_4");
+        Thread t3 = new Thread(new Thread_3(234, 300), "fir_3");
+        Thread t4 = new Thread(new Thread_4(890, 800), "fir_4");
 
         t1.start();
-        // try {
-        //     t1.join();
-        // } catch (InterruptedException e) {
-        //     throw new RuntimeException(e);
-        // }
+
         t2.start();
-        // try {
-        //     t2.join();
-        // } catch (InterruptedException e) {
-        //     throw new RuntimeException(e);
-        // }
+
         t3.start();
-        // try {
-        //     t3.join();
-        // } catch (InterruptedException e) {
-        //     throw new RuntimeException(e);
-        // }
+
         t4.start();
     }
 }
@@ -71,13 +50,14 @@ class Thread_1 implements Runnable {
                 }
             }
         }
-        
+        try { Thread.sleep(18000);
         String numePrenume = "Donesco si Procopciuc";
         for (char c : numePrenume.toCharArray()) {
             System.out.print(c);
             try { Thread.sleep(100); } catch (InterruptedException e) { }
         }
         System.out.println();
+        } catch (InterruptedException e) { }
     }
 }
 
@@ -108,14 +88,17 @@ class Thread_2 implements Runnable {
                 }
             }
         }
-        String numePrenume = "Alina si Daniel";
-        for (char c : numePrenume.toCharArray()) {
-            System.out.print(c);
-            try { Thread.sleep(100); } catch (InterruptedException e) { }
-        }
-        System.out.println();
+        try { Thread.sleep(21000);
+            String numePrenume = "Alina si Daniel";
+            for (char c : numePrenume.toCharArray()) {
+                System.out.print(c);
+                try { Thread.sleep(100); } catch (InterruptedException e) { }
+            }
+            System.out.println();
+        } catch (InterruptedException e) { }
     }
 }
+
 
 class Thread_3 implements Runnable {
     int from, to;
