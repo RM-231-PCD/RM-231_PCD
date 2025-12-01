@@ -23,23 +23,23 @@ public class Lab3 {
         Thread t4 = new Thread(new Thread_4(890, 700), "fir_4");
 
         t1.start();
-        try {
-            t1.join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        // try {
+        //     t1.join();
+        // } catch (InterruptedException e) {
+        //     throw new RuntimeException(e);
+        // }
         t2.start();
-        try {
-            t2.join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        // try {
+        //     t2.join();
+        // } catch (InterruptedException e) {
+        //     throw new RuntimeException(e);
+        // }
         t3.start();
-        try {
-            t3.join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        // try {
+        //     t3.join();
+        // } catch (InterruptedException e) {
+        //     throw new RuntimeException(e);
+        // }
         t4.start();
     }
 }
