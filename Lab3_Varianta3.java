@@ -1,19 +1,15 @@
 import java.util.Random;
 
 public class Lab3_Varianta3 {
-    // Variabile partajate și constante
     static final int ARRAY_SIZE = 100;
     static int[] b = new int[ARRAY_SIZE]; 
     static int[] oddNumbers; 
     static int oddCount = 0;
 
-    // Informații de afișat la final
-    static final String INFO_NUME = "\nDodon Cristin";       // Afișat de Th2 (setPriority)
-    static final String INFO_PRENUME = "\nPrepelita Catalin";     // Afișat de Th1 (sleep)
-    static final String INFO_DISCIPLINA = "\nProgramarea Concurenta si Distribuita"; // Afișat de Th3 (join)
-    static final String INFO_GRUPA = "\nRM-231";                   // Afișat de Th4 (yield)
-
-    // Metodă Ajutătoare (Comună)
+    static final String INFO_NUME = "\nDodon Cristin";       
+    static final String INFO_PRENUME = "\nPrepelita Catalin";    
+    static final String INFO_DISCIPLINA = "\nProgramarea Concurenta si Distribuita"; 
+    static final String INFO_GRUPA = "\nRM-231";               
     private static void printWithDelay(String text, String threadName) {
         System.out.print(threadName + " afiseaza: ");
         for (int i = 0; i < text.length(); i++) {
@@ -27,11 +23,9 @@ public class Lab3_Varianta3 {
         System.out.println();
     }
     
-    // ====================================================================
-    // PARTEA LUI PREPELITA CATALIN (Th1 & Th3)
-    // ====================================================================
 
-    // Thread 1: Sume impare de la primul element (Sincronizare: sleep())
+    // PARTEA LUI PREPELITA CATALIN (Th1 & Th3)
+   
     static class Thread1_Sarcina1 extends Thread {
         public Thread1_Sarcina1() { setName("Th1"); }
 
@@ -46,7 +40,7 @@ public class Lab3_Varianta3 {
                     System.out.println(getName() + ": Suma " + oddNumbers[i] + " + " + oddNumbers[i + 1] + " = " + sum);
                 }
                 try {
-                    Thread.sleep(50); // Sincronizare: sleep()
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
@@ -55,7 +49,6 @@ public class Lab3_Varianta3 {
         }
     }
 
-    // Thread 3: Parcurgere interval [0, 798] (Sincronizare: join() în main)
     static class Thread3_Sarcina3 extends Thread {
         public Thread3_Sarcina3() { setName("Th3"); }
 
@@ -76,15 +69,12 @@ public class Lab3_Varianta3 {
         }
     }
 
-    // ====================================================================
-    // PARTEA LUI DODON CRISTIN (Th2 & Th4)
-    // ====================================================================
     
-    // Thread 2: Sume impare de la sfârșit (Sincronizare: setPriority())
+    // PARTEA LUI DODON CRISTIN (Th2 & Th4)
     static class Thread2_Sarcina2 extends Thread {
         public Thread2_Sarcina2() { 
             setName("Th2"); 
-            setPriority(MAX_PRIORITY); // Sincronizare: setPriority()
+            setPriority(MAX_PRIORITY); 
         }
 
         @Override
@@ -108,7 +98,6 @@ public class Lab3_Varianta3 {
         }
     }
 
-    // Thread 4: Parcurgere [2111, 1456] (Sincronizare: yield())
     static class Thread4_Sarcina4 extends Thread {
         public Thread4_Sarcina4() { setName("Th4"); }
 
@@ -125,10 +114,7 @@ public class Lab3_Varianta3 {
         }
     }
 
-    // ====================================================================
-    // FUNCTIA MAIN (Sincronizare Principală: join())
-    // ====================================================================
-
+    
     public static void main(String[] args) throws InterruptedException {
         Random random = new Random();
 
@@ -151,7 +137,6 @@ public class Lab3_Varianta3 {
             }
         }
         
-        // 2. Creare și pornire thread-uri
         Thread1_Sarcina1 th1 = new Thread1_Sarcina1(); 
         Thread2_Sarcina2 th2 = new Thread2_Sarcina2(); 
         Thread3_Sarcina3 th3 = new Thread3_Sarcina3(); 
@@ -163,7 +148,6 @@ public class Lab3_Varianta3 {
         th3.start();
         th4.start();
 
-        // 3. Sincronizare Principală: join() - Așteaptă finalizarea tuturor
         System.out.println("\nThread-ul principal asteapta finalizarea sarcinilor de calcul...");
         
         th1.join(); 
@@ -176,7 +160,6 @@ public class Lab3_Varianta3 {
         System.out.println("Incepem afisarea textului final in ordine strictă.");
         System.out.println("----------------------------------------------------");
 
-        // 4. Afișarea finală (Ordinea cerută: Th2 -> Th4 -> Th1 -> Th3)
         printWithDelay(INFO_NUME, "Th2");
         printWithDelay(INFO_GRUPA, "Th4");
         printWithDelay(INFO_PRENUME, "Th1");
