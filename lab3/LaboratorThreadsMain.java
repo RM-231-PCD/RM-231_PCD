@@ -3,8 +3,8 @@ package lab3;
 public class LaboratorThreadsMain {
 
 
-    public static final String NUME_STUDENT = "Josan Nicolae si Secrieru Maxim";
-    public static final String PRENUME_STUDENT = "Nicolae";
+    public static final String NUME_STUDENT = "Nicolae si  Maxim";
+    public static final String PRENUME_STUDENT = "Josan si Secrieru";
     public static final String GRUPA = "RM-232";
     public static final String DISCIPLINA = "Programarea Concurentă și distribuită";
 
@@ -66,16 +66,6 @@ public class LaboratorThreadsMain {
         int[] arr = new int[size];
         for (int i = 0; i < size; i++) arr[i] = start + i;
         return arr;
-    }
-
-
-        public static void printArray(int[] arr) {
-        System.out.println("\nRezultatul realizării:");
-        System.out.println("Printing Array:");
-        for (int x : arr) {
-            System.out.print(x + " ");
-        }
-        System.out.println("\n");
     }
 
 
