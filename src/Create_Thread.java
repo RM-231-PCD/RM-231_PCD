@@ -1,4 +1,15 @@
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.locks.ReentrantLock;
+
 public class Create_Thread {
+
+    private static final Object lock1 = new Object();
+    private static final ReentrantLock lock2 = new ReentrantLock();
+    private static final Semaphore semaphore3 = new Semaphore(0);
+    private static final CountDownLatch latch4 = new CountDownLatch(1);
+
+    private static final Semaphore th1ToTh2 = new Semaphore(0);
 
     private static void afisareLent(String text) {
         try {
@@ -26,14 +37,13 @@ public class Create_Thread {
                 }
             }
             System.out.println("Suma Th1 = " + sum);
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            try { Thread.sleep(200); } catch (InterruptedException e) {Thread.currentThread().interrupt();}
 
-            System.out.print("Th1 (Prenume): ");
-            afisareLent("Andrei Victoria");
+            synchronized (lock1) {
+                System.out.print("Th1 (Prenume): ");
+                afisareLent("Andrei Victoria");
+            }
+            th1ToTh2.release();
         }
     }
 
@@ -51,13 +61,22 @@ public class Create_Thread {
             }
             System.out.println("Suma Th2 = " + sum);
 
+            try { Thread.sleep(250); } catch (InterruptedException e) {Thread.currentThread().interrupt();}
+
             try {
-                Thread.sleep(2700);
+                th1ToTh2.acquire();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-            System.out.print("Th2 (Nume): ");
-            afisareLent("Lozinschi Muntean");
+
+            lock2.lock();
+            try {
+                System.out.print("Th2 (Nume): ");
+                afisareLent("Lozinschi Muntean");
+            } finally {
+                lock2.unlock();
+                semaphore3.release();
+            }
         }
     }
 
@@ -74,13 +93,17 @@ public class Create_Thread {
             }
             System.out.println();
 
+            try { Thread.sleep(300);} catch (InterruptedException e) {Thread.currentThread().interrupt();}
+
             try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+                semaphore3.acquire();
+                System.out.print("Th3 (Disciplina): ");
+                afisareLent("Programarea Concurenta si Distribuita");
+            } catch (InterruptedException e) {}
+            finally {
+                latch4.countDown();
             }
-            System.out.print("Th3 (Disciplina): ");
-            afisareLent("Programarea Concurenta si Distribuita");
+
         }
     }
 
@@ -98,13 +121,13 @@ public class Create_Thread {
 
             System.out.println();
 
+            try {Thread.sleep(350);} catch (InterruptedException e) {Thread.currentThread().interrupt();}
+
             try {
-                Thread.sleep(9000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-            System.out.print("Th4 (Grupa): ");
-            afisareLent("RM-231");
+                latch4.await();
+                System.out.print("Th4 (Grupa): ");
+                afisareLent("RM-231");
+            } catch (InterruptedException e) {}
         }
     }
 
