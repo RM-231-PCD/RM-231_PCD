@@ -4,7 +4,7 @@ public class Create_Thread {
         try {
             for (char c : text.toCharArray()) {
                 System.out.print(c);
-                Thread.sleep(80);
+                Thread.sleep(80); // metoda Thread.sleep()
             }
             System.out.println();
         } catch (InterruptedException ignored) {}
@@ -13,6 +13,9 @@ public class Create_Thread {
     public static class Th1 extends Thread {
         @Override
         public void run() {
+
+            Thread.yield(); // ------------------ metoda 1: yield()
+
             long sum = 0;
             for (int i = 655; i <= 1277; i += 2) {
                 int produs = i * (i + 2);
@@ -44,10 +47,14 @@ public class Create_Thread {
             }
             System.out.println("Suma Th2 = " + sum);
 
-            try { before.join(); } catch (InterruptedException ignored) {}
+            try {
+                before.join();      // ----------- metoda 2: join()
+            } catch (InterruptedException ignored) {}
 
             System.out.println("Th2 (Nume): ");
             afisareLent("Lozinschi Muntean");
+
+            before.interrupt();     // ---------- metoda 3: interrupt()
         }
     }
 
@@ -66,6 +73,12 @@ public class Create_Thread {
                 if (i == 862 || i == 1070) System.out.println();
             }
             System.out.println();
+
+            if (Thread.interrupted()) {
+                System.out.println("Th3: Am fost întrerupt, dar continui executia...");
+            }
+
+            try { Thread.sleep(200); } catch (InterruptedException ignored) {}  // metoda 4: sleep()
 
             try { before.join(); } catch (InterruptedException ignored) {}
 
