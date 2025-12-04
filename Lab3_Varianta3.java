@@ -15,7 +15,7 @@ public class Lab3_Varianta3 {
         System.out.print(threadName + " afiseaza: ");
         for (int i = 0; i < text.length(); i++) {
             System.out.print(text.charAt(i));
-            try {git
+            try {
                 Thread.sleep(100); 
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
@@ -47,26 +47,7 @@ public class Lab3_Varianta3 {
         }
     }
 
-    static class Thread3_Sarcina3 extends Thread {
-        public Thread3_Sarcina3() { setName("Th3"); }
-
-        @Override
-        public void run() {
-            System.out.println("Starting " + getName() + " (Sarcina 3)...");
-            for (int i = 0; i <= 798; i++) {
-                if (i % 80 == 0) {
-                    System.out.print(getName() + ":" + i + " | ");
-                }
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-            }
-            System.out.println(); 
-            System.out.println(getName() + " a finalizat parcurgerea.");
-        }
-    }
+    
 
     
     static class Thread2_Sarcina2 extends Thread {
@@ -96,6 +77,27 @@ public class Lab3_Varianta3 {
         }
     }
 
+static class Thread3_Sarcina3 extends Thread {
+        public Thread3_Sarcina3() { setName("Th3"); }
+
+        @Override
+        public void run() {
+            System.out.println("Starting " + getName() + " (Sarcina 3)...");
+            for (int i = 0; i <= 798; i++) {
+                if (i % 80 == 0) {
+                    System.out.print(getName() + ":" + i + " | ");
+                }
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+            System.out.println(); 
+            System.out.println(getName() + " a finalizat parcurgerea.");
+        }
+    }
+    
     static class Thread4_Sarcina4 extends Thread {
         public Thread4_Sarcina4() { setName("Th4"); }
 
@@ -106,6 +108,7 @@ public class Lab3_Varianta3 {
                 if (i % 70 == 0) {
                     System.out.print(getName()  + ":" + i + " | "); 
                 }
+                
                 Thread.yield();
             }
             System.out.println();
