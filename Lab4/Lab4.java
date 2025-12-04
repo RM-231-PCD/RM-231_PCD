@@ -16,7 +16,7 @@ import java.util.Queue;
 import java.util.Random;
 
 public class Lab4 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         Depozit depozit = new Depozit(11, 3);
 
@@ -30,9 +30,15 @@ public class Lab4 {
         p1.start();
         p2.start();
         p3.start();
-
         c1.start();
         c2.start();
+
+
+        c1.join();
+        c2.join();
+        p1.interrupt();
+        p2.interrupt();
+        p3.interrupt();
     }
 
     static class Producator implements Runnable {
@@ -46,17 +52,19 @@ public class Lab4 {
 
         @Override
         public void run() {
-            for (int i = 0; i < 6; i++) {
-                depozit.produce(id);
+            try {
+                while (!Thread.currentThread().isInterrupted()) {
+                    depozit.produce(id);
+                }
+            } catch (InterruptedException e) {
+
             }
-            depozit.anuntaTerminareProductie();
         }
     }
 
     static class Consumator implements Runnable {
         private final Depozit depozit;
         private final int id;
-        private int consumedCount = 0;
 
         public Consumator(Depozit depozit, int id) {
             this.depozit = depozit;
@@ -65,13 +73,14 @@ public class Lab4 {
 
         @Override
         public void run() {
-            for (int i = 0; i < 12; i++) {
-                char item = depozit.consume();
-                if (item == 0) break;
-                consumedCount++;
-                System.out.println("Consumator " + id +
-                        " a consumat: " + item +
-                        " total consumat de el: " + consumedCount);
+            try {
+                for (int i = 0; i < 12; i++) {
+                    char item = depozit.consume();
+                    System.out.println("Consumator " + id +
+                            " a consumat: " + item +
+                            " total consumat de el: " + (i + 1));
+                }
+            } catch (InterruptedException e) {
             }
         }
     }
@@ -90,14 +99,13 @@ public class Lab4 {
             this.producatoriRamas = nrProducatori;
         }
 
-        public synchronized void produce(int producerId) {
+        public synchronized void produce(int producerId) throws InterruptedException {
             while (items.size() + 2 > capacity) {
-                try { wait(); } catch (InterruptedException ignored) {}
+                wait();
             }
 
             char c1 = CONSOANE[rand.nextInt(CONSOANE.length)];
             char c2 = CONSOANE[rand.nextInt(CONSOANE.length)];
-
             items.add(c1);
             items.add(c2);
 
@@ -108,14 +116,12 @@ public class Lab4 {
             notifyAll();
         }
 
-        public synchronized char consume() {
+        public synchronized char consume() throws InterruptedException {
             while (items.isEmpty() && producatoriRamas > 0) {
-                try { wait(); } catch (InterruptedException ignored) {}
+                wait();
             }
 
-            if (items.isEmpty() && producatoriRamas == 0) {
-                return 0;
-            }
+            if (items.isEmpty() && producatoriRamas == 0) return 0;
 
             char item = items.remove();
             notifyAll();
@@ -124,9 +130,7 @@ public class Lab4 {
 
         public synchronized void anuntaTerminareProductie() {
             producatoriRamas--;
-            if (producatoriRamas == 0) {
-                notifyAll();
-            }
+            notifyAll();
         }
     }
 }
