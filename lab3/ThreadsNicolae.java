@@ -7,50 +7,45 @@ public class ThreadsNicolae {
         @Override
         public void run() {
 
-            Thread currentThread = Thread.currentThread();
-            System.out.println("TH1 – Josan Nicolae ");
-            System.out.println("Thread name: " + currentThread.getName());
-            System.out.println("Thread ID: " + currentThread.getId());
-            System.out.println("Rol: Sumele produselor numerelor de pe poziții pare două câte două începând cu primul element");
-            System.out.println("Th1 started: Procesare array1 - sume produse pe poziții pare (de la început)");
+            Thread t = Thread.currentThread();
+
+            System.out.println("=== TH1 – Josan Nicolae ===");
+            System.out.println("Thread name: " + t.getName());
+            System.out.println("Thread ID: " + t.getId());
+            System.out.println("Rol: Sume produse numerelor de pe poziții pare două câte două");
+            System.out.println("Th1: Procesare array1 - produse pe poziții pare (de la început)");
 
             int[] array = LaboratorThreadsMain.array1;
             long totalSum = 0;
 
             for (int i = 0; i < array.length - 2; i += 4) {
-                if (currentThread.isInterrupted()) {
-                    System.out.println("\nTh1: Thread-ul a fost întrerupt!");
-                    currentThread.interrupt();
+
+                if (t.isInterrupted()) {
+                    System.out.println("Th1: Thread întrerupt!");
                     return;
                 }
 
-                int pos1 = i;
-                int pos2 = i + 2;
+                int a = array[i];
+                int b = array[i + 2];
+                long product = (long) a * b;
+                totalSum += product;
 
-                if (pos2 < array.length) {
-                    long prod = (long) array[pos1] * array[pos2];
-                    totalSum += prod;
-                    System.out.println("Th1: Produs pe poziții pare [" + pos1 + ", " + pos2 + 
-                                     "]: arr[" + pos1 + "] * arr[" + pos2 + "] = " + 
-                                     array[pos1] + " * " + array[pos2] + " = " + prod);
-                }
+                System.out.println("Th1: " + a + " * " + b + " = " + product);
 
                 try {
-                    Thread.sleep(2);
+                    Thread.sleep(3);
                 } catch (InterruptedException e) {
-                    System.out.println("\nTh1: Sleep întrerupt!");
-                    currentThread.interrupt();
+                    System.out.println("Th1: întrerupt în sleep!");
                     return;
                 }
             }
 
-            System.out.println(">>> Th1 FINAL: Suma totală a produselor = " + totalSum + 
-                             " [realizat de: Josan Nicolae]");
+            System.out.println("\n>>> Th1 FINAL: SUMA TOTALĂ = " + totalSum +
+                    " [realizat de: Josan Nicolae]");
 
             LaboratorThreadsMain.threadFinished();
             LaboratorThreadsMain.waitForAllThreads();
-
-            LaboratorThreadsMain.displayInOrder("Thread-1", LaboratorThreadsMain.PRENUME_STUDENT);
+            LaboratorThreadsMain.displayInOrder("Thread-1", LaboratorThreadsMain.NUME_STUDENT);
         }
     }
 
@@ -58,55 +53,45 @@ public class ThreadsNicolae {
         @Override
         public void run() {
 
-            Thread currentThread = Thread.currentThread();
-            System.out.println("Josan Nicolae");
-            System.out.println("Thread name: " + currentThread.getName());
-            System.out.println("Thread ID: " + currentThread.getId());
-            System.out.println("Rol: Sumele produselor numerelor de pe poziții pare două câte două începând cu ultimul element");
-            System.out.println("Th2 started: Procesare array1 - sume produse pe poziții pare (de la sfârșit)");
+            Thread t = Thread.currentThread();
 
-            int[] array = LaboratorThreadsMain.array1;
+            System.out.println("=== TH2 – Josan Nicolae ===");
+            System.out.println("Thread name: " + t.getName());
+            System.out.println("Thread ID: " + t.getId());
+            System.out.println("Rol: Produsele numerelor de pe poziții impare, două câte două");
+            System.out.println("Th2: Procesare array2 - produse pe poziții impare (de la sfârșit)");
+
+            int[] array = LaboratorThreadsMain.array2;
             long totalSum = 0;
 
-            int lastEvenPos = (array.length - 1) % 2 == 0 ? array.length - 1 : array.length - 2;
+            for (int i = array.length - 1; i >= 3; i -= 4) {
 
-            // Parcurgem pozițiile pare de la sfârșit spre început, două câte două
-            // Perechea 1: (lastEvenPos, lastEvenPos-2), Perechea 2: (lastEvenPos-4, lastEvenPos-6), etc.
-            for (int i = lastEvenPos; i >= 2; i -= 4) {
-                // Verifică dacă thread-ul a fost întrerupt
-                if (currentThread.isInterrupted()) {
-                    System.out.println("\nTh2: Thread-ul a fost întrerupt!");
-                    currentThread.interrupt();
+                if (t.isInterrupted()) {
+                    System.out.println("Th2: Thread întrerupt!");
                     return;
                 }
 
-                int pos1 = i;
-                int pos2 = i - 2;
+                int a = array[i];
+                int b = array[i - 2];
+                long product = (long) a * b;
+                totalSum += product;
 
-                if (pos2 >= 0) {
-                    long prod = (long) array[pos1] * array[pos2];
-                    totalSum += prod;
-                    System.out.println("Th2: Produs pe poziții pare [" + pos1 + ", " + pos2 + 
-                                     "]: arr[" + pos1 + "] * arr[" + pos2 + "] = " + 
-                                     array[pos1] + " * " + array[pos2] + " = " + prod);
-                }
+                System.out.println("Th2: " + a + " * " + b + " = " + product);
 
                 try {
-                    Thread.sleep(2);
+                    Thread.sleep(3);
                 } catch (InterruptedException e) {
-                    System.out.println("\nTh2: Sleep întrerupt!");
-                    currentThread.interrupt();
+                    System.out.println("Th2: întrerupt în sleep!");
                     return;
                 }
             }
 
-            System.out.println(">>> Th2 FINAL: Suma totală a produselor = " + totalSum + 
-                             " [realizat de: Josan Nicolae]");
+            System.out.println("\n>>> Th2 FINAL: SUMA TOTALĂ = " + totalSum +
+                    " [realizat de: Josan Nicolae]");
 
             LaboratorThreadsMain.threadFinished();
             LaboratorThreadsMain.waitForAllThreads();
-
-            LaboratorThreadsMain.displayInOrder("Thread-2", LaboratorThreadsMain.NUME_STUDENT);
+            LaboratorThreadsMain.displayInOrder("Thread-2", LaboratorThreadsMain.PRENUME_STUDENT);
         }
     }
 }

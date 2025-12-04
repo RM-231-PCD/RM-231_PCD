@@ -5,43 +5,26 @@ public class ThreadsMaxim {
     public static class Task3 implements Runnable {
         @Override
         public void run() {
-            Thread currentThread = Thread.currentThread();
+            Thread t = Thread.currentThread();
             System.out.println("=== TH3 – Secrieru Maxim ===");
-            System.out.println("Thread name: " + currentThread.getName());
-            System.out.println("Thread ID: " + currentThread.getId());
-            System.out.println("Rol: de parcurs de la ÎNCEPUT intervalul [567, 1002]");
-            System.out.println("Th3: Parcurgere DE LA ÎNCEPUT intervalul [567, 1002]");
+            System.out.println("Thread name: " + t.getName());
+            System.out.println("Rol: parcurgere de la ÎNCEPUT interval [567, 1002]");
 
-            int[] array1 = LaboratorThreadsMain.array1; // [567, 1002]
-            int countInLine = 0;
+            int[] array1 = LaboratorThreadsMain.array1;
+            int count = 0;
 
-            for (int i = 0; i < array1.length; i++) {
-                if (currentThread.isInterrupted()) {
-                    System.out.println("\nTh3: Thread-ul a fost întrerupt!");
-                    currentThread.interrupt();
-                    return;
-                }
+            for (int value : array1) {
 
-                System.out.print("Th3:" + array1[i] + " ");
-                countInLine++;
+                if (t.isInterrupted()) return;
 
-                if (countInLine == 10) {
-                    System.out.println();
-                    countInLine = 0;
-                }
+                System.out.print("Th3:" + value + " ");
+                if (++count == 10) { System.out.println(); count = 0; }
 
-                try { 
-                    Thread.sleep(2); 
-                } catch (InterruptedException e) {
-                    System.out.println("\nTh3: Sleep întrerupt!");
-                    currentThread.interrupt();
-                    return;
-                }
+                try { Thread.sleep(2); } catch (InterruptedException e) { return; }
             }
 
-            System.out.println("\n>>> Th3 FINAL: " + array1.length +
-                    " elemente procesate [realizat de: Secrieru Maxim]");
-             
+            System.out.println("\n>>> Th3 FINAL: " + array1.length);
+
             LaboratorThreadsMain.printArray(array1);
             LaboratorThreadsMain.threadFinished();
             LaboratorThreadsMain.waitForAllThreads();
@@ -52,46 +35,28 @@ public class ThreadsMaxim {
     public static class Task4 implements Runnable {
         @Override
         public void run() {
-            Thread currentThread = Thread.currentThread();
+
+            Thread t = Thread.currentThread();
             System.out.println("=== TH4 – Secrieru Maxim ===");
-            System.out.println("Thread name: " + currentThread.getName());
-            System.out.println("Thread ID: " + currentThread.getId());
-            System.out.println("Rol: de parcurs de la SFÂRȘIT intervalul [567, 1100]");
-            System.out.println("Th4: Parcurgere DE LA SFÂRȘIT intervalul [567, 1100]");
+            System.out.println("Thread name: " + t.getName());
+            System.out.println("Rol: parcurgere de la SFÂRȘIT interval [567, 1100]");
 
             int[] array2 = LaboratorThreadsMain.array2;
-            int countInLine = 0;
+            int count = 0;
 
             for (int i = array2.length - 1; i >= 0; i--) {
-                if (currentThread.isInterrupted()) {
-                    System.out.println("\nTh4: Thread-ul a fost întrerupt!");
-                    currentThread.interrupt();
-                    return;
-                }
+
+                if (t.isInterrupted()) return;
 
                 System.out.print("Th4:" + array2[i] + " ");
-                countInLine++;
+                if (++count == 10) { System.out.println(); count = 0; }
 
-                if (countInLine == 10) {
-                    System.out.println();
-                    countInLine = 0;
-                }
-
-                try { 
-                    Thread.sleep(2); 
-                } catch (InterruptedException e) {
-                    System.out.println("\nTh4: Sleep întrerupt!");
-                    currentThread.interrupt();
-                    return;
-                }
+                try { Thread.sleep(2); } catch (InterruptedException e) { return; }
             }
 
-            System.out.println("\n>>> Th4 FINAL: " + array2.length +
-                    " elemente procesate [realizat de: Secrieru Maxim]");
-
+            System.out.println("\n>>> Th4 FINAL: " + array2.length);
 
             LaboratorThreadsMain.printArray(array2);
-
             LaboratorThreadsMain.threadFinished();
             LaboratorThreadsMain.waitForAllThreads();
             LaboratorThreadsMain.displayInOrder("Thread-4", LaboratorThreadsMain.GRUPA);

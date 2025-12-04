@@ -2,16 +2,13 @@ package lab3;
 
 public class LaboratorThreadsMain {
 
-
     public static final String NUME_STUDENT = "Nicolae si  Maxim";
     public static final String PRENUME_STUDENT = "Josan si Secrieru";
     public static final String GRUPA = "RM-232";
     public static final String DISCIPLINA = "Programarea Concurentă și distribuită";
 
-
     public static final int[] array1 = generateArray(567, 1002);
     public static final int[] array2 = generateArray(567, 1100);
-
 
     public static volatile int finishedThreads = 0;
     public static volatile int currentDisplay = 0;
@@ -19,13 +16,6 @@ public class LaboratorThreadsMain {
     public static final String[] DISPLAY_ORDER = {
             "Thread-2", "Thread-4", "Thread-1", "Thread-3"
     };
-
-    // Obiect de sincronizare pentru threadFinished
-    private static final Object finishedLock = new Object();
-    
-    // Obiect de sincronizare pentru displayInOrder
-    private static final Object displayLock = new Object();
-
 
     public static void main(String[] args) {
 
@@ -59,8 +49,6 @@ public class LaboratorThreadsMain {
         System.out.println("\n Toate firele s-au încheiat.");
     }
 
-
-
     public static int[] generateArray(int start, int end) {
         int size = end - start + 1;
         int[] arr = new int[size];
@@ -68,26 +56,15 @@ public class LaboratorThreadsMain {
         return arr;
     }
 
-
-
+    // Nou: doar creștem contorul volatile
     public static void threadFinished() {
-        synchronized (finishedLock) {
-            finishedThreads++;
-            if (finishedThreads == 4) {
-                finishedLock.notifyAll();
-            }
-        }
+        finishedThreads++;
     }
 
+    // Nou: busy waiting + sleep în loc de wait()
     public static void waitForAllThreads() {
-        synchronized (finishedLock) {
-            while (finishedThreads < 4) {
-                try {
-                    finishedLock.wait();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-            }
+        while (finishedThreads < 4) {
+            try { Thread.sleep(10); } catch (InterruptedException ignored) {}
         }
     }
 
@@ -100,20 +77,24 @@ public class LaboratorThreadsMain {
     }
 
     public static void displayInOrder(String threadName, String text) {
-        synchronized (displayLock) {
-            while (!DISPLAY_ORDER[currentDisplay].equals(threadName)) {
-                try {
-                    displayLock.wait();
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-            }
 
-            System.out.print(threadName + ": ");
-            printWithDelay(text, 100);
-
-            currentDisplay++;
-            displayLock.notifyAll();
+        // așteptăm până ne vine rândul
+        while (!DISPLAY_ORDER[currentDisplay].equals(threadName)) {
+            try { Thread.sleep(10); } catch (InterruptedException ignored) {}
         }
+
+        System.out.print(threadName + ": ");
+        printWithDelay(text, 100);
+
+        currentDisplay++;
+    }
+
+    public static void printArray(int[] arr) {
+        int cnt = 0;
+        for (int n : arr) {
+            System.out.print(n + " ");
+            if (++cnt == 20) { System.out.println(); cnt = 0; }
+        }
+        System.out.println();
     }
 }
