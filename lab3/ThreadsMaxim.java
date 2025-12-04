@@ -1,6 +1,10 @@
 package lab3;
 
+import java.util.concurrent.CountDownLatch;
+
 public class ThreadsMaxim {
+
+    public static CountDownLatch latch = new CountDownLatch(2); // pentru 2 thread-uri
 
     public static class Task3 implements Runnable {
         @Override
@@ -14,7 +18,6 @@ public class ThreadsMaxim {
             int count = 0;
 
             for (int value : array1) {
-
                 if (t.isInterrupted()) return;
 
                 System.out.print("Th3:" + value + " ");
@@ -24,10 +27,14 @@ public class ThreadsMaxim {
             }
 
             System.out.println("\n>>> Th3 FINAL: " + array1.length);
-
             LaboratorThreadsMain.printArray(array1);
-            LaboratorThreadsMain.threadFinished();
-            LaboratorThreadsMain.waitForAllThreads();
+
+            // Semnalăm că acest thread a terminat
+            latch.countDown();
+
+            // Așteptăm ceilalți thread-uri să termine
+            try { latch.await(); } catch (InterruptedException e) { return; }
+
             LaboratorThreadsMain.displayInOrder("Thread-3", LaboratorThreadsMain.DISCIPLINA);
         }
     }
@@ -35,7 +42,6 @@ public class ThreadsMaxim {
     public static class Task4 implements Runnable {
         @Override
         public void run() {
-
             Thread t = Thread.currentThread();
             System.out.println("=== TH4 – Secrieru Maxim ===");
             System.out.println("Thread name: " + t.getName());
@@ -45,7 +51,6 @@ public class ThreadsMaxim {
             int count = 0;
 
             for (int i = array2.length - 1; i >= 0; i--) {
-
                 if (t.isInterrupted()) return;
 
                 System.out.print("Th4:" + array2[i] + " ");
@@ -55,10 +60,14 @@ public class ThreadsMaxim {
             }
 
             System.out.println("\n>>> Th4 FINAL: " + array2.length);
-
             LaboratorThreadsMain.printArray(array2);
-            LaboratorThreadsMain.threadFinished();
-            LaboratorThreadsMain.waitForAllThreads();
+
+            // Semnalăm că acest thread a terminat
+            latch.countDown();
+
+            // Așteptăm ceilalți thread-uri să termine
+            try { latch.await(); } catch (InterruptedException e) { return; }
+
             LaboratorThreadsMain.displayInOrder("Thread-4", LaboratorThreadsMain.GRUPA);
         }
     }

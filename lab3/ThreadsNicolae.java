@@ -2,11 +2,9 @@ package lab3;
 
 public class ThreadsNicolae {
 
-
     public static class Task1 implements Runnable {
         @Override
         public void run() {
-
             Thread t = Thread.currentThread();
 
             System.out.println("=== TH1 – Josan Nicolae ===");
@@ -19,7 +17,6 @@ public class ThreadsNicolae {
             long totalSum = 0;
 
             for (int i = 0; i < array.length - 2; i += 4) {
-
                 if (t.isInterrupted()) {
                     System.out.println("Th1: Thread întrerupt!");
                     return;
@@ -43,8 +40,16 @@ public class ThreadsNicolae {
             System.out.println("\n>>> Th1 FINAL: SUMA TOTALĂ = " + totalSum +
                     " [realizat de: Josan Nicolae]");
 
-            LaboratorThreadsMain.threadFinished();
-            LaboratorThreadsMain.waitForAllThreads();
+            // Așteaptă Thread2 dacă rulează
+            if (LaboratorThreadsMain.thread2 != null && ((Thread) LaboratorThreadsMain.thread2).isAlive()) {
+                try {
+                    ((Thread) LaboratorThreadsMain.thread2).join();
+                } catch (InterruptedException e) {
+                    System.out.println("Th1: întrerupt în join!");
+                    return;
+                }
+            }
+
             LaboratorThreadsMain.displayInOrder("Thread-1", LaboratorThreadsMain.NUME_STUDENT);
         }
     }
@@ -52,7 +57,6 @@ public class ThreadsNicolae {
     public static class Task2 implements Runnable {
         @Override
         public void run() {
-
             Thread t = Thread.currentThread();
 
             System.out.println("=== TH2 – Josan Nicolae ===");
@@ -65,7 +69,6 @@ public class ThreadsNicolae {
             long totalSum = 0;
 
             for (int i = array.length - 1; i >= 3; i -= 4) {
-
                 if (t.isInterrupted()) {
                     System.out.println("Th2: Thread întrerupt!");
                     return;
@@ -89,8 +92,16 @@ public class ThreadsNicolae {
             System.out.println("\n>>> Th2 FINAL: SUMA TOTALĂ = " + totalSum +
                     " [realizat de: Josan Nicolae]");
 
-            LaboratorThreadsMain.threadFinished();
-            LaboratorThreadsMain.waitForAllThreads();
+            // Așteaptă Thread1 dacă rulează
+            if (LaboratorThreadsMain.thread1 != null && ((Thread) LaboratorThreadsMain.thread1).isAlive()) {
+                try {
+                    ((Thread) LaboratorThreadsMain.thread1).join();
+                } catch (InterruptedException e) {
+                    System.out.println("Th2: întrerupt în join!");
+                    return;
+                }
+            }
+
             LaboratorThreadsMain.displayInOrder("Thread-2", LaboratorThreadsMain.PRENUME_STUDENT);
         }
     }
