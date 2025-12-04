@@ -28,44 +28,40 @@ public class lab4 {
         Maxim_c2.start();
         Maxim_c3.start();
 
-        // Așteptăm consumatorii să termine
         while (Maxim_c1.isAlive() || Maxim_c2.isAlive() || Maxim_c3.isAlive()) {}
 
         System.out.println("\nToți consumatorii au fost îndestulați cu 5 numere pare!");
     }
 }
 
-class   Storage {
+class Storage {
     private final ArrayList<Integer> depozit = new ArrayList<>();
     private final int MAX_SIZE = 12;
     private final int[] NUMERE_PARE = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30};
 
     private final Random rnd = new Random();
 
-    // Consumatorul preia un număr par
     public synchronized int get(String consumerName) {
         while (depozit.size() == 0) {
             System.out.println("Atenție! " + consumerName + ": Depozitul este gol → așteaptă...");
-            try { wait(); } catch (InterruptedException ignored) {} //Asteapta Maxim pana producatoru o sa puna numarul par in dipozit
+            try { wait(); } catch (InterruptedException ignored) {}
         }
 
         int numarPar = depozit.remove(depozit.size() - 1);
-        System.out.println(consumerName + " a consumat numărul par: " + numarPar);//am luat numarul par
+        System.out.println(consumerName + " a consumat numărul par: " + numarPar);
 
         afiseazaDepozit();
 
-        notifyAll();//heeeeeeey! Nicolae! eu am luat un numar par!
+        notifyAll();
         return numarPar;
     }
 
-    // Producătorul produce 2 numere pare
     public synchronized void put(String producerName) {
         while (depozit.size() >= MAX_SIZE) {
             System.out.println("Atenție! " + producerName + ": Depozitul este plin → așteaptă...");
             try { wait(); } catch (InterruptedException ignored) {}
         }
 
-        // Produce 2 numere pare aleatorii
         int n1 = NUMERE_PARE[rnd.nextInt(NUMERE_PARE.length)];
         int n2 = NUMERE_PARE[rnd.nextInt(NUMERE_PARE.length)];
 
@@ -136,4 +132,3 @@ class Consumer extends Thread {
         System.out.println("Succes " + name + " a consumat 5 numere pare și s-a terminat.");
     }
 }
-
