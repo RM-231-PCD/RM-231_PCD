@@ -6,16 +6,17 @@ public class Lab3_Varianta3 {
     static int[] oddNumbers; 
     static int oddCount = 0;
 
-    static final String INFO_NUME = "\nDodon Cristin";       
-    static final String INFO_PRENUME = "\nPrepelita Catalin";    
+    static final String INFO_NUME = "\nDodon , Prepelita";       
+    static final String INFO_PRENUME = "\nCristi , Catalin";   
     static final String INFO_DISCIPLINA = "\nProgramarea Concurenta si Distribuita"; 
-    static final String INFO_GRUPA = "\nRM-231";               
+    static final String INFO_GRUPA = "\nRM-231";              
+    
     private static void printWithDelay(String text, String threadName) {
         System.out.print(threadName + " afiseaza: ");
         for (int i = 0; i < text.length(); i++) {
             System.out.print(text.charAt(i));
-            try {
-                Thread.sleep(100);
+            try {git
+                Thread.sleep(100); 
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -23,9 +24,6 @@ public class Lab3_Varianta3 {
         System.out.println();
     }
     
-
-    // PARTEA LUI PREPELITA CATALIN (Th1 & Th3)
-   
     static class Thread1_Sarcina1 extends Thread {
         public Thread1_Sarcina1() { setName("Th1"); }
 
@@ -65,16 +63,16 @@ public class Lab3_Varianta3 {
                     Thread.currentThread().interrupt();
                 }
             }
-            System.out.println("\n" + getName() + " a finalizat parcurgerea.");
+            System.out.println(); 
+            System.out.println(getName() + " a finalizat parcurgerea.");
         }
     }
 
     
-    // PARTEA LUI DODON CRISTIN (Th2 & Th4)
     static class Thread2_Sarcina2 extends Thread {
         public Thread2_Sarcina2() { 
             setName("Th2"); 
-            setPriority(MAX_PRIORITY); 
+            setPriority(MAX_PRIORITY);
         }
 
         @Override
@@ -104,13 +102,14 @@ public class Lab3_Varianta3 {
         @Override
         public void run() {
             System.out.println("Starting " + getName() + " (Sarcina 4)...");
-            for (int i = 2111; i >= 1456; i--) {
+            for (int i = 2111; i >= 1456; i--) { 
                 if (i % 70 == 0) {
-                    System.out.print(getName() + ":" + i + " | ");
+                    System.out.print(getName()  + ":" + i + " | "); 
                 }
-                Thread.yield(); // Sincronizare: yield()
+                Thread.yield();
             }
-            System.out.println("\n" + getName() + " a finalizat parcurgerea.");
+            System.out.println();
+            System.out.println(getName() + " a finalizat parcurgerea.");
         }
     }
 
@@ -118,16 +117,15 @@ public class Lab3_Varianta3 {
     public static void main(String[] args) throws InterruptedException {
         Random random = new Random();
 
-        // 1. Initializare date
         System.out.println("Printing Array b (Random 1-100):");
         for (int i = 0; i < ARRAY_SIZE; i++) {
             b[i] = random.nextInt(100) + 1;
-            System.out.print(b[i] + (i % 20 == 19 ? "\n" : " "));
+            System.out.print(b[i] + (i % 20 == 19 ? "\n" : " ")); 
             if (b[i] % 2 != 0) {
                 oddCount++;
             }
         }
-        System.out.println("\nTotal numere impare: " + oddCount);
+        System.out.println("Total numere impare: " + oddCount);
 
         oddNumbers = new int[oddCount];
         int k = 0;
@@ -148,7 +146,7 @@ public class Lab3_Varianta3 {
         th3.start();
         th4.start();
 
-        System.out.println("\nThread-ul principal asteapta finalizarea sarcinilor de calcul...");
+        System.out.println("\nThread-ul principal asteapta finalizarea sarcinilor de calcul/parcurgere...");
         
         th1.join(); 
         th3.join();
