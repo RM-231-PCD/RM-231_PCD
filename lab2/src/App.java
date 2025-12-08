@@ -1,183 +1,82 @@
-import javax.swing.*;
-import java.awt.*;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.Random;
 
-public class App {
-    // Список запущенных потоков (чтобы можно было управлять)
-    private static final List<Thread> threads = new ArrayList<>();
-    private static ThreadGroup mainGroup;
-    private static ThreadGroup G1;
-    private static ThreadGroup G2;
-    private static ThreadGroup G3;
+public class App
+{
+    static int[] mas = new int[100];
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(App::createAndShowGui);
-    }
+    public static void main(String[] args)
+    {
+        Random rand = new Random();
+        for (int i = 0; i < mas.length; i++)
+        {
+            mas[i] = rand.nextInt(100) + 1;
+        }
 
-    private static void createAndShowGui() {
-        JFrame frame = new JFrame("ThreadGroups Demo");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
-        frame.setLayout(new BorderLayout());
+        System.out.println("Сгенерированный массив:");
+        for (int i = 0; i < mas.length; i++) {
+            System.out.print(mas[i] + " ");
+            if ((i + 1) % 50 == 0) System.out.println();
+        }
+        System.out.println();
 
-        JTextArea logArea = new JTextArea();
-        logArea.setEditable(false);
-        JScrollPane scroll = new JScrollPane(logArea);
-        frame.add(scroll, BorderLayout.CENTER);
-
-        // Перенаправляем System.out в лог
-        PrintStream ps = new PrintStream(new TextAreaOutputStream(logArea));
-        System.setOut(ps);
-        System.setErr(ps);
-
-        JPanel controls = new JPanel();
-        JButton startBtn = new JButton("Start");
-        JButton statsBtn = new JButton("Show Stats");
-        JButton stopBtn = new JButton("Interrupt");
-
-        controls.add(startBtn);
-        controls.add(statsBtn);
-        controls.add(stopBtn);
-        frame.add(controls, BorderLayout.NORTH);
-
-        startBtn.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                startThreads();
-            }
-        });
-        statsBtn.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                showStats();
-            }
-        });
-        stopBtn.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                interruptThreads();
-            }
-        });
-
-        frame.setVisible(true);
-    }
-
-    private static void initGroups() {
-        mainGroup = Thread.currentThread().getThreadGroup();
-        G1 = new ThreadGroup(mainGroup, "G1");
-        G2 = new ThreadGroup(mainGroup, "G2");
-        G3 = new ThreadGroup(G1, "G3");
-    }
-
-    private static void startThreads() {
-        // Если уже запущены — не запускать повторно
-        synchronized (threads) {
-            if (!threads.isEmpty()) {
-                System.out.println("Потоки уже запущены.");
-                return;
-            }
-
-            initGroups();
-
-            // В G3 создаём потоки: Tha(3), Thb(3), Thc(3), Thd(3)
-            threads.add(createThread(G3, "Tha", 3));
-            threads.add(createThread(G3, "Thb", 3));
-            threads.add(createThread(G3, "Thc", 3));
-            threads.add(createThread(G3, "Thd", 3));
-
-            // В G2 создаём: Th1(4), Th2(5), Th3(5)
-            threads.add(createThread(G2, "Th1", 4));
-            threads.add(createThread(G2, "Th2", 5));
-            threads.add(createThread(G2, "Th3", 5));
-
-            // В main (или в mainGroup) создаём Th1(7), Th2(7), ThA(3)
-            threads.add(createThread(mainGroup, "Th1_main", 7));
-            threads.add(createThread(mainGroup, "Th2_main", 7));
-            threads.add(createThread(mainGroup, "ThA_main", 3));
-
-            // Запускаем
-            for (Thread t : threads) t.start();
-
-            // В отдельном наблюдателе ждём их завершения и очищаем список
-            new Thread(() -> {
-                for (Thread t : threads) {
-                    try {
-                        t.join();
-                    } catch (InterruptedException ex) {
-                        Thread.currentThread().interrupt();
+        ThreadGroup G1 = new ThreadGroup("G1");
+        Thread th1 = new Thread(G1, "Th1")
+        {
+            public void run()
+            {
+                System.out.println("Th1 начал работу");
+                for (int i = 0; i < mas.length - 1; i += 2)
+                {
+                    if (mas[i] % 2 == 0 && mas[i + 1] % 2 == 0)
+                    {
+                        int sum = mas[i] + mas[i + 1];
+                        System.out.println("Th1: " + mas[i] + " + " + mas[i + 1] + " = " + sum + " (позиции " + i + " и " + (i + 1) + ")");
                     }
                 }
-                System.out.println("Все потоки завершили работу.");
-                synchronized (threads) {
-                    threads.clear();
-                }
-            }, "watcher").start();
-        }
-    }
-
-    private static void showStats() {
-        if (mainGroup == null) initGroups();
-        System.out.println("Статистика групп:");
-        printGroupInfo(mainGroup, "mainGroup");
-        printGroupInfo(G1, "G1");
-        printGroupInfo(G2, "G2");
-        printGroupInfo(G3, "G3");
-    }
-
-    private static void interruptThreads() {
-        synchronized (threads) {
-            if (threads.isEmpty()) {
-                System.out.println("Нет запущенных потоков для прерывания.");
-                return;
+                System.out.println("Th1 завершил работу");
             }
-            System.out.println("Прерываем все потоки...");
-            for (Thread t : threads) t.interrupt();
-        }
-    }
+        };
 
-    private static Thread createThread(ThreadGroup group, String name, int seconds) {
-        return new Thread(group, () -> {
-            String fullName = Thread.currentThread().getName();
-            System.out.printf("[%s] started in group '%s', will run %d seconds...%n",
-                    fullName, group.getName(), seconds);
-            try {
-                for (int i = 0; i < seconds; i++) {
-                    Thread.sleep(1000);
-                    System.out.printf("[%s] %d/%d sec%n", fullName, i + 1, seconds);
+        Thread th2 = new Thread(G1, "Th2")
+        {
+            public void run()
+            {
+                System.out.println("Th2 начал работу");
+                for (int i = mas.length - 1; i > 0; i -= 2)
+                {
+                    if (mas[i] % 2 == 0 && mas[i - 1] % 2 == 0)
+                    {
+                        int sum = mas[i] + mas[i - 1];
+                        System.out.println("Th2: " + mas[i] + " + " + mas[i - 1] + " = " + sum + " (позиции " + i + " и " + (i - 1) + ")");
+                    }
                 }
-            } catch (InterruptedException e) {
-                System.out.printf("[%s] interrupted%n", fullName);
-                Thread.currentThread().interrupt();
+                System.out.println("Th2 завершил работу");
             }
-            System.out.printf("[%s] finished.%n", fullName);
-        }, name);
-    }
+        };
 
-    private static void printGroupInfo(ThreadGroup group, String label) {
-        int activeCount = group.activeCount();
-        int activeGroupCount = group.activeGroupCount();
-        System.out.printf("Group %s (name='%s'): activeThreads=%d, activeSubgroups=%d%n",
-                label, group.getName(), activeCount, activeGroupCount);
-    }
+        th1.start();
+        th2.start();
 
-    // OutputStream, который пишет в JTextArea
-    private static class TextAreaOutputStream extends OutputStream {
-        private final JTextArea textArea;
-
-        TextAreaOutputStream(JTextArea ta) { this.textArea = ta; }
-
-        @Override
-        public void write(int b) {
-            write(new byte[]{(byte) b}, 0, 1);
+        try {
+            th1.join();
+            th2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
-        @Override
-        public void write(byte[] b, int off, int len) {
-            final String text = new String(b, off, len);
-            SwingUtilities.invokeLater(() -> textArea.append(text));
+        System.out.println("\nИнформация о выполнении:");
+        String text = "Лабораторную работу выполнили: Каранфил Дмитрий и Червинский Кирилл";
+        for (char c : text.toCharArray())
+        {
+            System.out.print(c);
+            try
+            {
+                Thread.sleep(100);
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
         }
+        System.out.println("\nПрограмма завершена.");
     }
 }
