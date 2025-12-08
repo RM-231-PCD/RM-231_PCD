@@ -3,9 +3,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class SistemProducatorConsumator extends JFrame {
 
@@ -19,39 +16,48 @@ public class SistemProducatorConsumator extends JFrame {
     private static final int LIMITA_CONSUM = 3;
     
     public SistemProducatorConsumator() {
-        super("Laborator 4: Varianta 3 (Vocale) - Thread Pool");
+        super("Laborator 4: Varianta 3 (Vocale) - Model Clasic Thread");
         initializareGUI();
         
         Depozit depozit = new Depozit(CAPACITATE_DEPOZIT, logArea, progressBar, statusLabel);
-        ExecutorService executor = Executors.newFixedThreadPool(NR_PRODUCATORI + NR_CONSUMATORI);
-        CountDownLatch latch = new CountDownLatch(NR_CONSUMATORI);
+        
+        List<Producator> producatori = new ArrayList<>();
+        List<Consumator> consumatori = new ArrayList<>();
 
         for (int i = 1; i <= NR_PRODUCATORI; i++) {
-            executor.execute(new Producator(depozit, "Producator-" + i));
+            Producator p = new Producator(depozit, "Producator-" + i);
+            producatori.add(p);
+            p.start(); 
         }
 
         for (int i = 1; i <= NR_CONSUMATORI; i++) {
-            executor.execute(new Consumator(depozit, "Consumator-" + i, LIMITA_CONSUM, latch));
+            Consumator c = new Consumator(depozit, "Consumator-" + i, LIMITA_CONSUM);
+            consumatori.add(c);
+            c.start(); 
         }
 
         new Thread(() -> {
             try {
-                latch.await();
+                for (Consumator c : consumatori) {
+                    c.join();
+                }
                 
                 SwingUtilities.invokeLater(() -> {
-                    logArea.append("\n>>> TOȚI CONSUMATORII AU TERMINAT! <<<\n");
-                    statusLabel.setText("Status: FINALIZAT. Thread-urile oprite.");
+                    logArea.append("\n>>> TOȚI CONSUMATORII AU TERMINAT! OPRIND PRODUCĂTORII... <<<\n");
+                    statusLabel.setText("Status: FINALIZAT. Oprim Producătorii.");
                     statusLabel.setForeground(Color.RED);
                 });
 
-                executor.shutdownNow();
+                for (Producator p : producatori) {
+                    p.interrupt();
+                }
 
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                // Thread-ul Supraveghetor nu este menit să fie întrerupt, dar gestionăm excepția.
             }
         }).start();
     }
-
+    
     private void initializareGUI() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(700, 550);
@@ -68,7 +74,7 @@ public class SistemProducatorConsumator extends JFrame {
         progressBar.setStringPainted(true);
         progressBar.setString("Depozit Gol");
         
-        statusLabel = new JLabel(" Sistem pornit cu ExecutorService...");
+        statusLabel = new JLabel(" Sistem pornit cu Thread Classic...");
         statusLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         statusLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
 
@@ -84,10 +90,13 @@ public class SistemProducatorConsumator extends JFrame {
     }
 }
 
+// -------------------------------------------------------------------------
+// CLASA DEPOZIT (RESURSA PARTAJATĂ)
+// -------------------------------------------------------------------------
+
 class Depozit {
     private List<Character> buffer;
     private int capacitateMaxima;
-    
     private JTextArea logArea;
     private JProgressBar progressBar;
     private JLabel statusLabel;
@@ -114,7 +123,7 @@ class Depozit {
             buffer.add(c2);
             log(numeThread + " a pus 2 vocale: [" + c1 + ", " + c2 + "]. Total: " + buffer.size());
         } else {
-            log(numeThread + " a pus DOAR [" + c1 + "]. Restul aruncat."+ c2 );
+            log(numeThread + " a pus DOAR [" + c1 + "]. Restul aruncat.");
         }
         
         updateGUI();
@@ -163,13 +172,18 @@ class Depozit {
     }
 }
 
-class Producator implements Runnable {
+// -------------------------------------------------------------------------
+// CLASA PRODUCATOR (EXTENDS THREAD)
+// -------------------------------------------------------------------------
+
+class Producator extends Thread { 
     private Depozit depozit;
     private String nume;
     private char[] vocale = {'A', 'E', 'I', 'O', 'U', 'a', 'e', 'i', 'o', 'u'};
     private Random random = new Random();
 
     public Producator(Depozit d, String nume) {
+        super(nume);
         this.depozit = d;
         this.nume = nume;
     }
@@ -177,7 +191,9 @@ class Producator implements Runnable {
     @Override
     public void run() {
         try {
-            while (!Thread.currentThread().isInterrupted()) {
+            while (!Thread.currentThread().isInterrupted()) { 
+                if (Thread.currentThread().isInterrupted()) throw new InterruptedException();
+                
                 char v1 = vocale[random.nextInt(vocale.length)];
                 char v2 = vocale[random.nextInt(vocale.length)];
                 
@@ -186,21 +202,25 @@ class Producator implements Runnable {
                 Thread.sleep(random.nextInt(1000) + 500); 
             }
         } catch (InterruptedException e) {
+            return; 
         }
     }
 }
 
-class Consumator implements Runnable {
+// -------------------------------------------------------------------------
+// CLASA CONSUMATOR (EXTENDS THREAD)
+// -------------------------------------------------------------------------
+
+class Consumator extends Thread {
     private Depozit depozit;
     private String nume;
     private int limitaConsum;
-    private CountDownLatch latch;
 
-    public Consumator(Depozit d, String nume, int limita, CountDownLatch latch) {
+    public Consumator(Depozit d, String nume, int limita) {
+        super(nume);
         this.depozit = d;
         this.nume = nume;
         this.limitaConsum = limita;
-        this.latch = latch;
     }
 
     @Override
@@ -213,8 +233,6 @@ class Consumator implements Runnable {
             System.out.println(">>> " + nume + " a terminat.");
         } catch (InterruptedException e) {
             e.printStackTrace();
-        } finally {
-            latch.countDown(); 
         }
     }
 }
