@@ -1,240 +1,163 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.*;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
-import static java.lang.Thread.sleep;
+public class Create_thread{
+    private static final int D_marima_depozit = 7;
+    private static final BlockingQueue<Integer> buffer = new ArrayBlockingQueue<>(D_marima_depozit);
 
-class Creare_thread_V {
-    private String memberName;
-    private int[] sharedArray;
+    private static final int Z_tinta = 4;
+    private static final int X_producatori = 2;
+    private static final int Y_consumatori = 4;
+    private static final int F_obiecte_ciclu = 2;
+    private static final int TOTAL_OBIECTE = Z_tinta * Y_consumatori;
 
-    public Creare_thread_V(String name, int[] array) {
-        this.memberName = name;
-        this.sharedArray = array;
-    }
+    private static final AtomicInteger totalProduced = new AtomicInteger(0);
+    private static final AtomicInteger totalConsumed = new AtomicInteger(0);
 
-    public String getMemberName() {
-        return memberName;
-    }
 
-    class Th1 extends Thread {
-        @Override
-        public void run() {
-            System.out.println(memberName + " Th1: Calculul produselor de la început");
+    private static final Map<Integer, AtomicInteger> consumerCounters = new ConcurrentHashMap<>();
+    private static final Map<Integer, AtomicInteger> producerCounters = new ConcurrentHashMap<>();
 
-            int diff = 0;
-            int c = 0;
-            for (int i = 0; i < sharedArray.length - 3; i += 2) {
-                int prod1 = sharedArray[i] * sharedArray[i + 2];
-                int prod2 = sharedArray[i + 1] * sharedArray[i + 3];
-                int diffPartial = Math.abs(prod1 - prod2);
-                diff += diffPartial;
-                c++;
-                
-                
-                System.out.println(memberName + " Th1: Produs1=" + prod1 + ", Produs2=" + prod2 + 
-                                 ", Diferenta=" + diffPartial + ", DiferentaTotala=" + diff);
-                
-                if (c >= 2) {
-                    try {
-                        sleep(500);
-                    } catch (InterruptedException e) {
-                        System.out.print(e);
-                    }
-                    c = 0;
-                }
-            }
-
-            System.out.println(memberName + " Diferența totală (de la început): " + diff);
-            
-            try {
-                sleep(4000);
-            }
-            catch (InterruptedException e) {
-                System.out.print(e);
-            }
-
-            String informatie = "Muntean Victoria / Grupa RM-231";
-            for (char simbol : informatie.toCharArray()) {
-                System.out.print(simbol);
-                try {
-                    sleep(100);
-                } catch (InterruptedException e) {
-                    System.out.print(e);
-                }
-            }
-            System.out.println();
-        }
-    }
-
-    class Th2 extends Thread {
-        @Override
-        public void run() {
-            System.out.println(memberName + " Th2: Calculul produselor de la sfârșit");
-
-            int diff = 0;
-            int c = 0;
-            for (int i = sharedArray.length - 1; i >= 3; i -= 2) {
-                int prod1 = sharedArray[i] * sharedArray[i - 2];
-                int prod2 = sharedArray[i - 1] * sharedArray[i - 3];
-                int diffPartial = Math.abs(prod1 - prod2);
-                diff += diffPartial;
-                c++;
-           
-                System.out.println(memberName + " Th2: Produs1=" + prod1 + ", Produs2=" + prod2 + 
-                                 ", Diferenta=" + diffPartial + ", DiferentaTotala=" + diff);
-                
-                if (c >= 2) {
-                    try {
-                        sleep(500);
-                    } catch (InterruptedException e) {
-                        System.out.print(e);
-                    }
-                    c = 0;
-                }
-            }
-
-            System.out.println(memberName + " Diferența totală (de la sfârșit): " + diff);
-        }
-    }
-
-    public void startThreads() {
-        Th1 t1 = new Th1();
-        Th2 t2 = new Th2();
-
-        System.out.println(memberName + " Starting threads...");
-        t1.start();
-        t2.start();
-
-    }
-}
-
-public class Create_thread {
     public static void main(String[] args) {
-        int mas[] = new int[100];
 
-        for (int i = 0; i < 100; i++) {
-            mas[i] = (int) (Math.random() * 100);
-            if (i == 50) {
-                System.out.println();
-            }
-            System.out.print(" " + mas[i]);
+        System.out.println("=== PROGRAM STARTED ===");
+        System.out.println("Parameters: X=" + X_producatori + " Y=" + Y_consumatori +
+                " Z=" + Z_tinta + " D=" + D_marima_depozit + " F=" + F_obiecte_ciclu);
+
+        ExecutorService executor = Executors.newFixedThreadPool(X_producatori + Y_consumatori);
+
+        for (int i = 1; i <= Y_consumatori; i++) {
+            consumerCounters.put(i, new AtomicInteger(0));
         }
 
-        System.out.println("\n");
-
-        Andrei_1 t1 = new Andrei_1(mas, 0, mas.length, 1);
-        t1.setName("Andrei_1");
-        t1.start();
-
-        Andrei_2 t2 = new Andrei_2(mas, mas.length - 1, 0, -1);
-        t2.setName("Andrei_2");
-        t2.start();
-
-        Creare_thread_V obj = new Creare_thread_V("Victoria", mas);
-        obj.startThreads();
-    }
-}
-
-class Andrei_1 extends Thread {
-
-    int mas[];
-    int from;
-    int to;
-    int step;
-
-    public Andrei_1(int mas[], int from, int to, int step) {
-        this.mas = mas;
-        this.from = from;
-        this.to = to;
-        this.step = step;
-    }
-
-    @Override
-    public void run() {
-
-        int p = 1;
-        int c = 0;
-        int s = 1;
-
-        for (int i = from; i != to; i += step) {
-            if (mas[i] % 2 == 0) {
-                if (c >= 2) {
-                    s = s * mas[i];
-                    c++;
-                } else {
-                    p = p * mas[i];
-                    c++;
-                }
-                if( c >= 4) {
-                    int suma = s + p;
-                    System.out.println(" Suma este: " + Thread.currentThread().getName() + " " + suma);
-                    p = 1;
-                    s = 1;
-                    c = 0;
-                }
-            }
+        for (int i = 1; i <= X_producatori; i++) {
+            producerCounters.put(i, new AtomicInteger(0));
         }
+
+        for (int i = 1; i <= X_producatori; i++) {
+            executor.execute(new Producer(i));
+        }
+
+        for (int i = 1; i <= Y_consumatori; i++) {
+            executor.execute(new Consumer(i));
+        }
+
+        executor.shutdown();
 
         try {
-            sleep(500);
-        }
-        catch (InterruptedException e) {
-            System.out.print(e);
+            executor.awaitTermination(60, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
-        String informatie = "Lozinschi Andrei / Grupa RM-231";
-        for (char simbol : informatie.toCharArray()) {
-            System.out.print(simbol);
+        System.out.println("\n========== RAPORT FINAL ==========");
+
+        System.out.println("Total produse: " + totalProduced.get());
+
+        System.out.println("Total consumate: " + totalConsumed.get());
+
+        consumerCounters.forEach((id, count) ->
+
+                System.out.println("Consumator " + id + ": " + count.get() + " obiecte consumate"));
+
+        producerCounters.forEach((id, count) ->
+
+                System.out.println("Producător " + id + ": " + count.get() + " obiecte produse"));
+
+        System.out.println("Obiecte rămase în buffer: " + buffer.size());
+    }
+
+    static class Producer implements Runnable {
+
+        private final int id;
+
+        private final Random random = new Random();
+
+        Producer(int id) {
+            this.id = id;
+        }
+
+        @Override
+        public void run() {
             try {
-                sleep(100);
+                while (totalProduced.get() < TOTAL_OBIECTE) {
+                    List<Integer> items = new ArrayList<>();
+                    for (int i = 0; i < F_obiecte_ciclu; i++) {
+                        items.add(generateOddNumber());
+                    }
+
+                    if (buffer.remainingCapacity() < F_obiecte_ciclu) {
+                        System.out.println("[Producător " + id + "] Depozitul e plin, așteaptă...");
+                    }
+
+                    for (Integer item : items) {
+                        buffer.put(item);
+                        int produced = totalProduced.incrementAndGet();
+                        int producerTotal = producerCounters.get(id).incrementAndGet();
+
+                        System.out.println(" [Producător " + id + "] a produs: " + item +
+                                " | Total producător: " + producerTotal +
+                                " | Total global: " + produced +
+                                " | Capacitate curentă: " + buffer.size() + "/" + D_marima_depozit);
+
+                        if (produced >= TOTAL_OBIECTE) {
+                            System.out.println(" Producătorul " + id + " s-a finalizat");
+                            break;
+                        }
+                    }
+
+                    Thread.sleep(200 + random.nextInt(100));
+                }
             } catch (InterruptedException e) {
-                System.out.print(e);
+                Thread.currentThread().interrupt();
             }
         }
-        System.out.println();
-    }
-}
 
-class Andrei_2 extends Thread {
-    int mas[];
-    int from;
-    int to;
-    int step;
-
-    public Andrei_2(int mas[], int from, int to, int step) {
-        this.mas = mas;
-        this.from = from;
-        this.to = to;
-        this.step = step;
+        private int generateOddNumber() {
+            int num;
+            do {
+                num = random.nextInt(19) + 1;
+            } while (num % 2 == 0);
+            return num;
+        }
     }
 
-    @Override
-    public void run() {
+    static class Consumer implements Runnable {
+        private final int id;
+        private final Random random = new Random();
 
-        int p = 1;
-        int c = 0;
-        int s = 1;
+        Consumer(int id) {
+            this.id = id;
+        }
 
-        for (int i = from; i != to; i += step) {
-            if (mas[i] % 2 == 0) {
-                if (c >= 2) {
-                    s = s * mas[i];
-                    c++;
-                } else {
-                    p = p * mas[i];
-                    c++;
+        @Override
+        public void run() {
+            try {
+                while (consumerCounters.get(id).get() < Z_tinta) {
+                    if (buffer.isEmpty()) {
+                        System.out.println(" [Consumator " + id + "] Depozitul e gol, așteaptă...");
+                    }
+
+                    Integer item = buffer.take();
+                    int consumerTotal = consumerCounters.get(id).incrementAndGet();
+                    int consumed = totalConsumed.incrementAndGet();
+
+                    System.out.println(" [Consumator " + id + "] a consumat: " + item +
+                            " | Progres: " + consumerTotal + "/" + Z_tinta +
+                            " | În depozit: " + buffer.size() + "/" + D_marima_depozit +
+                            " | Total global: " + consumed);
+
+                    if (consumerTotal >= Z_tinta) {
+                        System.out.println(" [Consumator " + id + "] a fost îndestulat cu " + Z_tinta + " obiecte!");
+                        break;
+                    }
+
+                    Thread.sleep(150 + random.nextInt(100));
                 }
-                if( c >= 4) {
-                    int suma = s + p;
-                    System.out.println(" Suma este: " + Thread.currentThread().getName() + " " + suma);
-                    p = 1;
-                    s = 1;
-                    c = 0;
-                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
             }
         }
     }
 }
-
-
-
