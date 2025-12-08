@@ -15,7 +15,7 @@ public class App
         System.out.println("Сгенерированный массив:");
         for (int i = 0; i < mas.length; i++) {
             System.out.print(mas[i] + " ");
-            if ((i + 1) % 50 == 0) System.out.println();
+            if ((i + 1) % 20 == 0) System.out.println();
         }
         System.out.println();
 
